@@ -66,11 +66,43 @@
   }
 
   // Renderers
-  function normalizeSrc(src){
-    if(!src) return '/images/placeholder.png';
-    return src.startsWith('/') ? src : `/${src}`;
+  function svgPlaceholder(title, authors){
+    const t = (String(title||'').slice(0,40) || 'Ukendt titel');
+    const a = (Array.isArray(authors)? authors.join(', ') : String(authors||'')).slice(0,40) || 'Ukendt forfatter';
+    const esc = s => encodeURIComponent(s);
+    const svg = `<?xml version="1.0" encoding="UTF-8"?><svg xmlns='http://www.w3.org/2000/svg' width='600' height='800' viewBox='0 0 600 800' role='img' aria-label='Midlertidigt bogomslag'>
+      <defs>
+        <linearGradient id='g' x1='0' y1='0' x2='0' y2='1'>
+          <stop offset='0%' stop-color='#e5e7eb'/>
+          <stop offset='100%' stop-color='#f3f4f6'/>
+        </linearGradient>
+      </defs>
+      <rect width='100%' height='100%' fill='url(#g)'/>
+      <rect x='40' y='60' width='520' height='680' fill='none' stroke='#d1d5db' stroke-width='3'/>
+      <text x='50%' y='45%' dominant-baseline='middle' text-anchor='middle' font-family='-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial' font-size='28' fill='#374151'>${t}</text>
+      <text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial' font-size='20' fill='#6b7280'>${a}</text>
+    </svg>`;
+    return `data:image/svg+xml;charset=UTF-8,${esc(svg)}`;
   }
-  const img = (src, alt) => `<img src="${normalizeSrc(src)}" alt="${alt?alt.replace(/\"/g,'\\"'):''}">`;
+  function normalizeSrcOrPlaceholder(src, title, authors){
+    const ph = svgPlaceholder(title, authors);
+    if(!src) return ph;
+    const path = src.startsWith('/') ? src : `/${src}`;
+    // Treat any known placeholder filename as missing
+    if(/placeholder\.(png|jpg|jpeg|svg)$/i.test(path)) return ph;
+    return { path, ph };
+  }
+  const img = (src, alt, authors) => {
+    const safeAlt = alt?alt.replace(/\"/g,'\\"'):'';
+    const res = normalizeSrcOrPlaceholder(src, alt, authors);
+    if(typeof res === 'string'){
+      // direct placeholder data URL
+      return `<img src="${res}" alt="${safeAlt}" loading="lazy">`;
+    }
+    const { path, ph } = res;
+    // onerror fallback to dynamic placeholder
+    return `<img src="${path}" alt="${safeAlt}" loading="lazy" onerror="this.onerror=null;this.src='${ph}'">`;
+  };
   const esc = (s) => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   const rating = (n) => {
     n = Number(n)||0; if(n<1) return '';
@@ -84,7 +116,7 @@
 
   function card(b){
     return `<article class="card" data-slug="${esc(b.slug)}" tabindex="0">
-      ${img(b.cover_image, b.title)}
+  ${img(b.cover_image, b.title, b.authors)}
       <div class="meta">
         <div class="title">${esc(b.title)}</div>
         <div class="muted">${esc((b.authors||[]).join(', '))}</div>
@@ -96,7 +128,7 @@
 
   function row(b){
     return `<article class="row" data-slug="${esc(b.slug)}" tabindex="0">
-      ${img(b.cover_image, b.title)}
+  ${img(b.cover_image, b.title, b.authors)}
       <div>
         <div class="title">${esc(b.title)}</div>
         <div class="muted">${esc((b.authors||[]).join(', '))}</div>
@@ -109,7 +141,7 @@
   function detailsHTML(b){
     const f = (label, val) => val ? `<div><strong>${label}:</strong> ${esc(val)}</div>` : '';
     return `
-      ${img(b.cover_image, b.title)}
+  ${img(b.cover_image, b.title, b.authors)}
       <div>
         <div><strong>Forfatter(e):</strong> ${esc((b.authors||[]).join(', '))}</div>
         <div><strong>Type:</strong> ${esc(b.type||'')}</div>
