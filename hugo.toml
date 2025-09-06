@@ -1,0 +1,16 @@
+baseURL = "/"
+languageCode = "da"
+title = "tsundoku.dk"
+enableRobotsTXT = true
+
+[params]
+  description = "Et minimalistisk bibliotek over bøger jeg har købt og hvorfor."
+
+[outputs]
+  home = ["HTML", "RSS"]
+
+[minify]
+  minifyOutput = true
+
+[pagination]
+  pagerSize = 24

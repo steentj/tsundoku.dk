@@ -1,0 +1,14 @@
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ if .Title }}{{ .Title }} · {{ end }}{{ .Site.Title }}</title>
+  <meta name="description" content="{{ with .Params.description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <meta property="og:title" content="{{ .Title }}" />
+  <meta property="og:description" content="{{ with .Params.description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ .Permalink }}" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="canonical" href="{{ .Permalink }}" />
+</head>

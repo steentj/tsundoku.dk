@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="da">
+{{ partial "head.html" . }}
+<body>
+  {{ partial "header.html" . }}
+  <main class="container">
+    {{ block "main" . }}{{ end }}
+  </main>
+  {{ partial "footer.html" . }}
+  <script src="/js/theme.js" defer></script>
+  <script src="/js/library.js" defer></script>
+</body>
+</html>

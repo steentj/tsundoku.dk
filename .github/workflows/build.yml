@@ -1,0 +1,52 @@
+name: build-and-deploy
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: Validate books.json against schema
+        uses: cardinalby/schema-validator-action@v3
+        with:
+          file: data/books.json
+          schema: schema/books.schema.json
+
+      - name: Build
+        run: hugo --minify
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: public
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: public
+
+      # TODO: Replace with statichost.eu official deploy Action
+      - name: Placeholder deploy step
+        run: |
+          echo "Deploy to statichost.eu goes here. Configure official Action with secrets."

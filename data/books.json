@@ -1,0 +1,61 @@
+[
+  {
+    "id": "bk-0001",
+    "slug": "meditations",
+    "title": "Meditations",
+    "authors": ["Marcus Aurelius"],
+    "type": "physical-used",
+    "purchase_reason": "Anbefalet som stoisk klassiker.",
+    "status": "finished",
+    "finished_at": "2024-08-14",
+    "review_text": "Kort, skarp og tidløs.",
+    "rating": 5,
+    "tags": ["stoicism","philosophy"],
+    "cover_image": "images/placeholder.png"
+  },
+  {
+    "id": "bk-0002",
+    "slug": "the-nicomachean-ethics",
+    "title": "Nicomachean Ethics",
+    "authors": ["Aristotle"],
+    "type": "ebook",
+    "purchase_reason": "Dybde omkring dydsetik.",
+    "status": "reading",
+    "cover_image": "images/placeholder.png"
+  },
+  {
+    "id": "bk-0003",
+    "slug": "thinking-fast-and-slow",
+    "title": "Thinking, Fast and Slow",
+    "authors": ["Daniel Kahneman"],
+    "type": "audiobook",
+    "purchase_reason": "Klassiker om kognitiv bias.",
+    "status": "not-started",
+    "cover_image": "images/placeholder.png"
+  },
+  {
+    "id": "bk-0004",
+    "slug": "sapiens-a-brief-history-of-humankind",
+    "title": "Sapiens: A Brief History of Humankind",
+    "authors": ["Yuval Noah Harari"],
+    "type": "physical-new",
+    "purchase_reason": "Bred historisk forståelse af menneskets udvikling.",
+    "status": "finished",
+    "finished_at": "2025-08-01",
+    "review_text": "Engagerende og tankevækkende – god som introduktion.",
+    "rating": 4,
+    "tags": ["history","anthropology"],
+    "cover_image": "images/placeholder.png"
+  },
+  {
+    "id": "bk-0005",
+    "slug": "atomic-habits",
+    "title": "Atomic Habits",
+    "authors": ["James Clear"],
+    "type": "ebook",
+    "purchase_reason": "Praktiske rammer for vaneopbygning.",
+    "status": "reading",
+    "tags": ["productivity","behavior"],
+    "cover_image": "images/placeholder.png"
+  }
+]

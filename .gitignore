@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# Hugo build output and cache
+public/
+resources/
+.hugo_build.lock
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# VS Code
+.vscode/

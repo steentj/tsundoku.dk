@@ -1,0 +1,95 @@
+/* Theme, layout, and components */
+:root {
+  --bg: #ffffff;
+  --fg: #111111;
+  --muted: #666666;
+  --card: #f7f7f8;
+  --border: #e5e7eb;
+  --accent: #3b82f6;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b0c0f;
+    --fg: #eaecee;
+    --muted: #9aa3af;
+    --card: #14161a;
+    --border: #24262b;
+    --accent: #60a5fa;
+  }
+}
+/* Explicit theme override via [data-theme] wins by cascade */
+:root[data-theme="light"] {
+  --bg: #ffffff;
+  --fg: #111111;
+  --muted: #666666;
+  --card: #f7f7f8;
+  --border: #e5e7eb;
+  --accent: #3b82f6;
+}
+:root[data-theme="dark"] {
+  --bg: #0b0c0f;
+  --fg: #eaecee;
+  --muted: #9aa3af;
+  --card: #14161a;
+  --border: #24262b;
+  --accent: #60a5fa;
+}
+* { box-sizing: border-box; }
+html, body { margin:0; padding:0; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Apple Color Emoji","Segoe UI Emoji",sans-serif;
+}
+.container { max-width: 1000px; margin: 0 auto; padding: 1.25rem; }
+.site-header .nav { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 1.25rem; border-bottom: 1px solid var(--border); }
+.nav .brand { font-weight: 700; text-decoration: none; color: var(--fg); }
+.nav a { color: var(--fg); text-decoration: none; opacity: 0.9; }
+.nav a:hover { opacity: 1; }
+.nav .spacer { flex: 1; }
+.site-footer { border-top: 1px solid var(--border); margin-top: 3rem; padding: 1.5rem; text-align: center; color: var(--muted); }
+
+h1, h2, h3 { line-height: 1.2; margin: 1rem 0 0.5rem; }
+p { margin: 0.5rem 0 1rem; }
+
+.btn { appearance: none; border: 1px solid var(--border); background: var(--fg); color: var(--bg); padding: 0.5rem 0.75rem; border-radius: 8px; cursor: pointer; }
+.btn.ghost { background: transparent; color: var(--fg); }
+.btn.sm { padding: 0.35rem 0.5rem; font-size: 0.9rem; }
+.actions { display: flex; gap: 0.75rem; }
+
+.hero { padding: 2rem 0; }
+.section-header { display: flex; align-items: center; gap: 1rem; justify-content: space-between; }
+.view-toggle { display: inline-flex; gap: 0.25rem; }
+
+.filters { display: grid; grid-template-columns: repeat(6, minmax(0,1fr)); gap: 0.75rem; align-items: end; margin: 1rem 0; }
+.filters label { display: grid; gap: 0.25rem; font-size: 0.9rem; }
+.filters input, .filters select { padding: 0.5rem 0.6rem; border:1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--fg); }
+.filters .spacer { display: none; }
+@media (max-width: 680px) {
+  .filters { grid-template-columns: 1fr; }
+  .filters .spacer { display: block; height: 1px; }
+}
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 1rem; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; display:flex; flex-direction: column; }
+.card img { width: 100%; height: 260px; object-fit: cover; background: #ddd; }
+.card .meta { padding: 0.75rem; display:grid; gap: 0.25rem; }
+.badges { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+.badge { font-size: 0.75rem; padding: 0.15rem 0.4rem; border-radius: 999px; border:1px solid var(--border); background: rgba(0,0,0,0.04); }
+.badge.reading { background: #fef3c7; border-color: #fde68a; color: #92400e; }
+.badge.finished { background: #dcfce7; border-color: #bbf7d0; color: #166534; }
+
+.list { display: grid; gap: 0.5rem; }
+.row { display: grid; grid-template-columns: 80px 1fr auto; gap: 0.75rem; align-items: center; border:1px solid var(--border); border-radius: 10px; padding: 0.5rem; background: var(--card); }
+.row img { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; }
+.row .title { font-weight: 600; }
+.row .muted { color: var(--muted); font-size: 0.9rem; }
+
+.rating { color: #f59e0b; }
+
+/* Modal */
+#bookModal { border: none; border-radius: 12px; padding: 0; max-width: 720px; width: 95vw; }
+#bookModal::backdrop { background: rgba(0,0,0,0.5); }
+#bookModal article header { display:flex; align-items:center; justify-content: space-between; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); }
+#bookModal article { display:grid; }
+#bookModal #bookDetails { padding: 1rem; display:grid; gap: 0.5rem; }

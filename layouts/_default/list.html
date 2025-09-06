@@ -1,0 +1,14 @@
+{{ define "main" }}
+<section>
+  <h1>{{ .Title }}</h1>
+  <ul>
+    {{ range .Pages }}
+      <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+    {{ end }}
+  </ul>
+  {{ .Content }}
+  {{ if .IsHome }}
+    <p><a href="/library/">Gå til biblioteket</a></p>
+  {{ end }}
+</section>
+{{ end }}

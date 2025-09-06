@@ -1,0 +1,417 @@
+steentj: jeg vil lave en lille static webside. siden skal hedde tsundoku.dk, et domæne jeg allerede ejer. siden skal hostes på https://www.statichost.eu på den gratis plan de har.
+den skal laves i en static host generator såsom hugo, jekyl, zola eller lignende.
+på siden vil jeg have et bibliotek over bøger jeg har købt. hver bog skal vise titel, forfatter, begrundelse for køb og type af bog (fysisk (ny eller brugt), ebog, lydbog). når jeg er i gang med at læse bogen, skal jeg kunne markere dette. når bogen er læst skal jeg kunne skrive en anmeldelse af den, både i tekst og som en karakter mellem 1 og 5. dato for færdig læst skal også angives. bøgerne skal kunne vise som kort på hjemmesiden eller som en liste.
+sidens indhold, altså bøgerne, vedligeholdes offline i en json fil, som kan ændres og uploeades gennem github actions. det vil sige siden skal ligge i github.
+udover bøgerne skal der være plads til at lave nogle indlæg om hvad tsundoku er og begrundelsen for siden. der kan komme flere indlæg senere.
+siden skal være elegant og moderne, men minimalistisk.
+vil du lave en prd for dette.
+stil opfølgende spørgsmål hvis nødvendigt.
+anbefal gerne static page generator, der er simpel. 
+
+GitHub Copilot: I'll set up a short task plan to draft the PRD and include a static site generator recommendation, then deliver the document and mark tasks done. 
+
+Created 4 todos
+
+Her er en komplet PRD på dansk for tsundoku.dk med anbefalet static site generator og åbne spørgsmål til afklaring. Når dokumentet er gennemlæst, markerer jeg PRD-opgaven som færdig og fortsætter med anbefalingen og spørgsmålene.
+Jeg udarbejder en præcis PRD for tsundoku.dk inkl. simpel SSG-anbefaling og åbne spørgsmål, så du kan godkende retningen før implementering.
+
+## Produktkravsdokument (PRD) — tsundoku.dk
+
+### Formål og mål
+- Formål: En elegant, minimalistisk, statisk side der dokumenterer dine købte bøger (tsundoku) og motiverne bag, samt giver plads til indlæg om fænomenet.
+- Primære mål:
+  - Vedligeholde et bogbibliotek i en offline JSON-fil (single source of truth).
+  - Publicere bibliotek og indlæg via GitHub Actions til statichost.eu (gratis plan).
+  - Gøre det enkelt at se og filtrere bøger, skifte mellem kort- og listevisning, og læse anmeldelser af afsluttede bøger.
+- Succeskriterier:
+  - Build og deploy sker automatisk ved push til main.
+  - Bibliotekssiden loader hurtigt (<1s TTFB via static host, <100KB CSS/JS samlet).
+  - Bøger kan vises i både kort- og listevisning med et klik og huskes lokalt.
+  - Mindst 1-2 indlæg kan udgives som Markdown.
+
+### Scope
+- In-scope:
+  - Statisk side generator (SSG) med templating.
+  - Data-drevet bibliotek ud fra en JSON-fil i repo.
+  - Visninger: kort-galleri og kompakt liste, med toggle og evt. simple filtre.
+  - Statusfelter: “i gang med at læse” og “færdiglæst” (inkl. dato for færdig).
+  - Anmeldelse (tekst + karakter 1-5) for færdiglæste bøger.
+  - Indlæg/Blog: Markdown-baserede posts.
+  - CI/CD: GitHub Actions der validerer JSON, bygger og deployer til statichost.eu.
+  - Minimalistisk, responsivt design (mobil først).
+- Out-of-scope:
+  - CMS/admin UI (redigering sker i JSON).
+  - Server-side funktioner/databaser.
+  - Bruger-login og multi-user funktioner.
+
+### Primære brugerflows
+- Indholdsforfatter (dig):
+  1) Rediger `data/books.json` lokalt.
+  2) Commit/push til GitHub.
+  3) GitHub Actions validerer, bygger og deployer automatisk.
+- Besøgende:
+  - Gå til Bibliotek.
+  - Skift mellem kort-/listevisning.
+  - Filtrér på type eller status (valgfri).
+  - Klik på bog for detaljevisning (valgfri).
+  - Læs indlæg om tsundoku og baggrund.
+
+### Informationsarkitektur
+- Forside: Kort intro til tsundoku + genvej til Bibliotek og Indlæg.
+- Bibliotek:
+  - Toggle: Kort/List.
+  - Filtre: Type (fysisk-ny/fysisk-brugt/ebog/lydbog), Status (ikke startet/i gang/færdig).
+  - Sortering (valgfri): Titel, Forfatter (A→Å).
+  - Søg (valgfri, klient-side).
+- Bogdetalje (valgfri rute): Egen side per bog, især nyttig ved længere anmeldelser.
+- Indlæg:
+  - Liste over indlæg (titel, dato, teaser).
+  - Indlægsside (Markdown).
+- Om (valgfri): Kort beskrivelse og kontakt/credits.
+
+### Datamodel (JSON)
+- Fil: `data/books.json` (SSG-afhængigt navn/placering kan være `data/books.json` eller tilsvarende).
+- Skema (forslag):
+  - id: string (unik)
+  - slug: string (url-venlig)
+  - title: string
+  - authors: string[] (min. én)
+  - type: enum ["physical-new","physical-used","ebook","audiobook"]
+  - purchase_reason: string
+  - status: enum ["not-started","reading","finished"]
+  - finished_at: string (YYYY-MM-DD, påkrævet hvis status=finished)
+  - review_text: string (valgfri)
+  - rating: integer 1-5 (valgfri, påkrævet hvis review_text udfyldt?—kan aftales)
+  - notes: string (valgfri)
+  - tags: string[] (valgfri)
+  - cover_image: string (valgfri, URL eller lokal sti)
+- Eksempel:
+  [
+    {
+      "id": "bk-0001",
+      "slug": "meditations",
+      "title": "Meditations",
+      "authors": ["Marcus Aurelius"],
+      "type": "physical-used",
+      "purchase_reason": "Anbefalet som stoisk klassiker.",
+      "status": "finished",
+      "finished_at": "2025-08-14",
+      "review_text": "Kort, skarp og tidløs.",
+      "rating": 5,
+      "tags": ["stoicism","philosophy"]
+    },
+    {
+      "id": "bk-0002",
+      "slug": "the-nicomachean-ethics",
+      "title": "Nicomachean Ethics",
+      "authors": ["Aristotle"],
+      "type": "ebook",
+      "purchase_reason": "Dybde omkring dydsetik.",
+      "status": "reading"
+    }
+  ]
+
+JSON-validering: En JSON Schema-fil i repo (f.eks. `schema/books.schema.json`) bruges i CI til at validere ændringer.
+
+### Funktionelle krav
+- Biblioteksliste:
+  - Viser alle bøger med felter: titel, forfatter(e), type, status, rating (hvis findes).
+  - Toggle mellem kort og liste; huskes via localStorage.
+  - Filtre på type og status.
+  - Vis badge/ikon for “i gang” og “færdig”.
+- Bogdetalje (hvis implementeret):
+  - Viser alle felter inkl. købsmotivation, anmeldelse og dato for færdig.
+- Indlæg:
+  - Markdown-filer renderes til liste og enkeltside.
+- Dataindlæsning:
+  - SSG læser `data/books.json` og genererer sider ved build.
+- Ingen runtime-skriveadgang:
+  - “Markér som læser/læst” håndteres ved at opdatere JSON og deploye (evt. lokal browser-only toggle kan tilføjes som opt-in, not persistent).
+- SEO:
+  - Title/description pr. side.
+  - Open Graph/Twitter tags (grundlæggende).
+  - Sitemap.xml og robots.txt.
+
+### Ikke-funktionelle krav
+- Ydelse:
+  - Minimal CSS (<30KB) og JS (<20KB), ingen tunge frameworks.
+  - Førstegangsindlæsning < 100KB total.
+- Tilgængelighed:
+  - Semantisk HTML, kontrast > WCAG AA, tastaturnavigation.
+- Responsiv:
+  - Mobil først, grid for kortvisning, læsevenlig typografi.
+- Stabilitet/vedligehold:
+  - Single-binary SSG (ingen tunge afhængigheder).
+  - CI-miljø uden komplekse build-steps.
+- Internationalisering:
+  - Dansk som primærsprog. URL-struktur klar til evt. senere sprog.
+
+### Designprincipper
+- Minimalistisk, moderne, rolig typografi (system font stack eller en enkelt webfont).
+- Lys/dunkel-tilstand (valgfri) med CSS-variabler.
+- Tydelige badges for status og type.
+- Kortlayout: omslag (hvis tilgængeligt), titel, forfatter, type/status, rating.
+- Liste: kompakt række med samme nøglefelter.
+
+### Teknisk arkitektur
+- Repo: GitHub (public eller private efter ønske).
+- SSG: se anbefalinger nedenfor.
+- Strukturforslag (Hugo som eksempel):
+  /content
+    /posts/*.md
+    /books/ (valgfri hvis bogdetalje-sider genereres som indholdsbundter)
+  /data/books.json
+  /layouts (templates/partials/shortcodes)
+  /static (css/js/assets)
+  /schema/books.schema.json
+  hugo.toml
+- Klientside JS:
+  - Toggle kort/liste + localStorage.
+  - Evt. client-side filter/søg (ingen backend).
+- CI/CD:
+  - Workflow 1: Validate (JSON schema check + linkcheck valgfri).
+  - Workflow 2: Build (SSG) og deploy til statichost.eu.
+- Hosting:
+  - statichost.eu gratis plan (afklar deploy-mekanisme: Git integration vs. upload/API).
+
+### CI/CD pipeline (oversigt)
+- On push to main:
+  1) Setup SSG (download binary).
+  2) Validate JSON mod schema.
+  3) Build site.
+  4) Upload artefakt til statichost.eu (via deres anbefalede metode; ellers standard upload, fx rsync/S3/API).
+- On PR:
+  - Kør validate + build for at fange fejl før merge.
+- Caching:
+  - Cache SSG-binær og deps for hurtigere build.
+
+### Accepttest-kriterier
+- Når `data/books.json` ændres, bygges og deployes sitet automatisk uden fejl.
+- Bibliotekssiden viser alle bøger fra JSON med korrekt type/status.
+- Skift mellem kort- og listevisning virker og huskes ved reload.
+- Filtre for type og status virker og kombineres korrekt.
+- Færdiglæste bøger viser dato og rating (hvis sat) i både liste og detalje.
+- Mindst ét indlæg rendres korrekt.
+- Sitet er responsivt, tilgængeligt (tastaturnavigation), og loader hurtigt.
+
+### Risici og afbødning
+- Ukendt deploy-flow på statichost.eu:
+  - Afklar og implementer passende GitHub Action. Alternativ fallback: GitHub Pages midlertidigt.
+- Data-konsistens i JSON:
+  - JSON Schema + CI-validering for at forhindre dårlig data i produktion.
+- Manglende cover-billeder/licenser:
+  - Felt er valgfrit; vis neutral placeholder.
+
+---
+
+## Anbefaling: Statisk Site Generator
+
+Primær anbefaling: Hugo
+- Hvorfor:
+  - Meget hurtig builds, enkel single-binary installation.
+  - Robust data-støtte (data/ JSON/TOML/YAML) og powerful templating.
+  - Nem at strukturere både indlæg (Markdown) og data-drevne lister.
+  - God dokumentation og stor community.
+- Passer godt til:
+  - Data-drevet bibliotek via `data/books.json`.
+  - Blog/indlæg i `/content/posts`.
+  - Simpel CI opsætning uden Node/Ruby toolchain.
+
+Stærkt alternativ: Zola
+- Hvorfor:
+  - Endnu mere minimalistisk, single-binary, Tera-templates.
+  - Også god data-understøttelse via `get_data`.
+- Trade-offs:
+  - Mindre community end Hugo, men stadig velafprøvet og enkel.
+
+Kan også bruges (men mindre simple i setup):
+- Jekyll (Ruby-økosystem; langsommere, kræver Ruby).
+- Eleventy (Node; fleksibel, men kræver Node-toolchain).
+
+Konklusion: Vælg Hugo for fart, enkelhed og fremtidssikring; Zola hvis du ønsker den mest “rene” minimale binære oplevelse med Tera.
+
+---
+
+## Leverancer og milepæle
+- M1: Repo-opsætning med SSG, basislayout og navigation.
+- M2: Datamodel + JSON Schema + eksempeldata.
+- M3: Biblioteksliste med kort/liste toggle og simple filtre.
+- M4: Indlægssystem (Markdown) og en første artikel.
+- M5: CI/CD: Validate + Build + Deploy til statichost.eu.
+- M6: Finpudsning af design, SEO, sitemap.
+
+---
+
+## Åbne spørgsmål til dig
+- statichost.eu deploy:
+  - Hvordan ønsker du at deploye? Har de GitHub-integration, S3/Spaces, FTP/SFTP eller en dedikeret deploy-API? Del gerne dokumentation/link.
+- Bogdetaljesider:
+  - Skal hver bog have en dedikeret side/URL, eller er en ren liste/kortvisning nok?
+- Interaktion på sitet:
+  - Ønsker du en “Markér som i gang/færdig”-knap der kun lagres i browseren (localStorage) som supplement? Bemærk: dette vil ikke opdatere JSON’en automatisk.
+- Filtre/søg:
+  - Skal der være søgning (titel/forfatter) på klientsiden udover filtre?
+- Cover-billeder:
+  - Har du kilde/URL’er til omslag, eller vil du køre uden? Evt. automatisk hentning frarådes pga. licenser.
+- Designpræferencer:
+  - Farveskema, typografi (system font vs. specifik webfont), lys/mørk tilstand?
+- Domæne/DNS:
+  - Skal tsundoku.dk pege direkte til statichost.eu (A/CNAME), eller vil du bruge en mellemstation (fx Cloudflare)?
+- Repo:
+  - Hvilket repo-navn og struktur foretrækkes? Public/private?
+
+---
+
+Hvis du godkender PRD’en og vælger Hugo (eller Zola), kan jeg bagefter sætte et minimalt skeleton op med eksempeldata, skabeloner, og en GitHub Action workflow, plus en kort README til daglig drift.
+
+steentj: statichost.eu deploy:
+- de har github action interface.
+Bogdetaljesider:
+- hvad vil du foreslå
+Interaktion på sitet:
+- igang/færdig skal være et felt i json
+Filtre/søg:
+- ja, filter på forfatter, titel og status
+Cover-billeder:
+- jeg har ikke kilder til omslag, vil selv lægge billeder op i en images folder i projektet. json filen skal så referere disse
+Designpræferencer:
+- der skal være både lys og mørk tilstand, men du må gerne foreslå designet, eventuelt baseret på en standard template
+Domæne/DNS:
+- jeg sætter det selv op, når siden er færdig og vises korrekt lokalt
+Repo:
+- public
+
+GitHub Copilot: I'm updating the PRD to incorporate your answers, finalizing the SSG recommendation, and closing the open questions, then I'll present the refined PRD. 
+
+Completed (2/4) *Udarbejde PRD-dokument*
+
+Tak for afklaringerne—jeg har opdateret PRD’en og lukket spørgsmålene. Nedenfor er den justerede PRD med konkrete anbefalinger (Hugo primært) og designforslag, så du kan godkende retningen før vi sætter skeleton + CI op.
+
+## PRD — tsundoku.dk (opdateret)
+
+### Nøgte afklaringer fra dig
+- Deploy: statichost.eu har GitHub Action interface (vi bruger det i CI).
+- Bogdetaljesider: forslag nedenfor (start simpelt).
+- Interaktion: statusfelter i JSON (“reading”/“finished”) er det eneste autoritative. Ingen runtime-skrivning.
+- Filtre/søg: på forfatter, titel og status (klientside).
+- Cover-billeder: du uploader selv i images, JSON refererer relative stier.
+- Design: lys/mørk tilstand; forslag velkomne.
+- Domæne: du sætter DNS op, når siden kører korrekt lokalt.
+- Repo: public.
+
+### Mål og scope (ingen ændring i intention)
+- Minimalistisk, hurtig, data-drevet statisk side for bogbibliotek + indlæg.
+- JSON som single source of truth; GitHub Actions bygger/deployer.
+
+### Informationsarkitektur
+- Forside: kort intro til tsundoku + links til Bibliotek og Indlæg.
+- Bibliotek:
+  - Visning: Toggle Kort/List (localStorage husk).
+  - Filtre/Søg: 
+    - Titel: fritekst (case-insensitive substring).
+    - Forfatter: fritekst (case-insensitive substring på alle `authors`).
+    - Status: drop-down (not-started/reading/finished).
+  - Sortering (valgfri bonus): Titel A→Å.
+- Bogdetalje:
+  - Foreslået fase 1: ingen separat URL—åbn en tilgængelig modal/sidepanel med fulde detaljer, inkl. purchase_reason, review, rating, finished_at.
+  - Fase 2 (valgfri): generér per-bog-sider med slug for direkte link og SEO.
+- Indlæg:
+  - Markdown-baserede posts, standard liste + enkeltside.
+- Om (valgfri): kort om projektet.
+
+### Datamodel (JSON)
+Fil: `data/books.json`
+Schema (opdateret og konkret):
+- id: string (unik)
+- slug: string (url-venlig)
+- title: string
+- authors: string[] (min 1)
+- type: enum ["physical-new","physical-used","ebook","audiobook"]
+- purchase_reason: string
+- status: enum ["not-started","reading","finished"]
+- finished_at: string (YYYY-MM-DD; påkrævet hvis status=finished)
+- review_text: string (valgfri)
+- rating: integer 1-5 (valgfri; hvis udfyldt vises)
+- tags: string[] (valgfri)
+- cover_image: string (valgfri; eksempel: "images/meditations.jpg")
+- notes: string (valgfri)
+
+Vi tilføjer `schema/books.schema.json` og validerer i CI. Billeder ligger under `static/images/` (Hugo/Zola) og refereres i JSON som `images/filnavn.jpg`.
+
+### Funktionelle krav
+- Bibliotek:
+  - Render fra `data/books.json`.
+  - Toggle kort/list (gemmes i localStorage).
+  - Klientside filtrering: titel, forfatter, status.
+  - Vis status-badges (fx “I gang”, “Færdig”).
+  - Rating-stjerner (udfyldt = 1–5).
+- Bogdetaljer:
+  - Klik på kort/række åbner modal med detaljer.
+  - Modal er tilgængelig (fokusfælde, Escape lukning, ARIA-roller).
+- Indlæg:
+  - Markdown posts i `/content/posts` (Hugo) eller `/content/blog` (Zola).
+- SEO:
+  - Basis metadata, Social (OG tags), sitemap, robots.
+- Performance:
+  - Minimal CSS og JS; ingen frameworks.
+
+### Ikke-funktionelle krav
+- Lighthouse > 90 på Performance/Best Practices/SEO.
+- CSS < 30KB, JS < 20KB minimeret.
+- Tilgængelighed: WCAG AA kontrast og tastaturnavigation.
+
+### Designforslag (lys/mørk)
+- Typografi: System stack (Inter valgfri—kan droppes for nul afhængigheder).
+  - font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", sans-serif
+- Farver (CSS custom properties):
+  - Light: 
+    - --bg: #ffffff; --fg: #111; --muted: #666; --card: #f7f7f8; --accent: #3b82f6
+  - Dark:
+    - --bg: #0b0c0f; --fg: #eaecee; --muted: #9aa3af; --card: #14161a; --accent: #60a5fa
+- Komponenter:
+  - Kort: subtil skygge, border-radius 8px, hover-elevation.
+  - Badges: bløde farver pr. status (reading = gul/amber subtil; finished = grøn).
+  - Toggle + filterfelt: kompakte input, sticky filterbar på mobil.
+- Ikoner: CSS/emoji eller små inline SVGs for status/type (ingen lib).
+
+### Teknisk anbefaling (SSG)
+- Primær: Hugo
+  - Fordele: Fart, stærk data-understøttelse, enkel CI, stort community.
+  - Struktur:
+    - `/data/books.json`
+    - `/content/posts/*.md`
+    - `/layouts/_default/list.html` (bibliotek), `single.html` (indlæg)
+    - `/layouts/partials` (kort, liste, filterbar, modal)
+    - `/assets` eller `/static/css` og `/static/js`
+  - JSON tilgængelig i templates via `.Site.Data.books`.
+
+### CI/CD (GitHub Actions + statichost.eu)
+- Workflow: `.github/workflows/deploy.yml`
+  - Triggere: push til main, manual dispatch.
+  - Steps:
+    1) Checkout.
+    2) Setup SSG (download hugo-extended).
+    3) JSON Schema-validate `data/books.json`.
+    4) Build.
+    5) Deploy til statichost.eu via deres officielle Action (du nævnte de har interface; vi refererer den pr. dokumentation og sætter secrets).
+- Artefakter: upload build-output for debugging på PRs.
+- Secrets: f.eks. `STATICHOST_TOKEN` hvis påkrævet.
+
+### Milepæle
+- M1: Hugo skeleton + tema-variabler + navigation.
+- M2: Data-model + schema + eksempeldata + liste/kort UI.
+- M3: Filtre (titel/forfatter/status) + modal detalje.
+- M4: Indlæg + første artikel “Hvad er tsundoku?”.
+- M5: CI validate/build + deploy til statichost.eu.
+- M6: Finpudsning, SEO, sitemap, README.
+
+### Acceptkriterier (opdateret)
+- Filtre fungerer klient-side for titel/forfatter/status med debounced søg.
+- Modal er tilgængelig og viser alle felter inkl. review/rating/dato.
+- Billeder indlæses fra images og vises med naturlig fallback hvis mangler.
+- Deploy kører via statichost.eu GitHub Action uden manuel indgriben.
+
+## Forslag til bogdetaljesider
+- Start med modal (fase 1): hurtigere at bygge, minimalt IA-aftryk.
+- Fase 2 (valgfri): generér en side pr. bog (`/books/<slug>/`) for deep-linking, social sharing og SEO. Hugo kan generere disse fra JSON ved at iterere `.Site.Data.books` og bruge headless page bundles eller dynamiske list/single templates (vi kan lave en pseudo-collection ved at generere sider via “data-driven pages” pattern eller ved at supplere med minimale markdown stub-filer, fx `content/books/<slug>/_index.md` som henter data via key lookup).
+
