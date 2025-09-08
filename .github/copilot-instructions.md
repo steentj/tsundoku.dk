@@ -21,7 +21,9 @@ This repo is a Hugo-based static site for tsundoku.dk. Content (books) is data-d
 - Data is the single source of truth: edit `data/books.json`; don’t embed book data in Markdown.
 - IDs/slugs are required; slugs must be URL-friendly (kebab-case).
 - Status values: `not-started` | `reading` | `finished`. If `finished`, `finished_at` (YYYY-MM-DD) is required.
-- Types: `physical-new` | `physical-used` | `ebook` | `audiobook`.
+- Fields:
+  - Format: `physical` | `ebook` | `audiobook`.
+  - Acquisition: `new` | `used` | `borrowed`.
 - Missing cover images should use `images/placeholder.png`.
 - Client state (view: cards/list and sort choice) persists in `localStorage`.
 

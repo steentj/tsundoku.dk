@@ -1,6 +1,6 @@
 steentj: jeg vil lave en lille static webside. siden skal hedde tsundoku.dk, et domæne jeg allerede ejer. siden skal hostes på https://www.statichost.eu på den gratis plan de har.
-den skal laves i en static host generator såsom hugo, jekyl, zola eller lignende.
-på siden vil jeg have et bibliotek over bøger jeg har købt. hver bog skal vise titel, forfatter, begrundelse for køb og type af bog (fysisk (ny eller brugt), ebog, lydbog). når jeg er i gang med at læse bogen, skal jeg kunne markere dette. når bogen er læst skal jeg kunne skrive en anmeldelse af den, både i tekst og som en karakter mellem 1 og 5. dato for færdig læst skal også angives. bøgerne skal kunne vise som kort på hjemmesiden eller som en liste.
+den skal laves i en static host generator hugo.
+på siden vil jeg have et bibliotek over bøger jeg har købt. hver bog skal vise titel, forfatter, begrundelse for køb og bogens format (fysisk, ebog eller lydbog) samt anskaffelse (ny, brugt eller lånt). når jeg er i gang med at læse bogen, skal jeg kunne markere dette. når bogen er læst skal jeg kunne skrive en anmeldelse af den, både i tekst og som en karakter mellem 1 og 5. dato for færdig læst skal også angives. bøgerne skal kunne vise som kort på hjemmesiden eller som en liste.
 sidens indhold, altså bøgerne, vedligeholdes offline i en json fil, som kan ændres og uploeades gennem github actions. det vil sige siden skal ligge i github.
 udover bøgerne skal der være plads til at lave nogle indlæg om hvad tsundoku er og begrundelsen for siden. der kan komme flere indlæg senere.
 siden skal være elegant og moderne, men minimalistisk.
@@ -34,7 +34,7 @@ Jeg udarbejder en præcis PRD for tsundoku.dk inkl. simpel SSG-anbefaling og åb
   - Statisk side generator (SSG) med templating.
   - Data-drevet bibliotek ud fra en JSON-fil i repo.
   - Visninger: kort-galleri og kompakt liste, med toggle og evt. simple filtre.
-  - Statusfelter: “i gang med at læse” og “færdiglæst” (inkl. dato for færdig).
+  - Statusfelter: "ikke læst", “i gang med at læse”, "opgivet at læse" og “færdiglæst” (inkl. dato for færdig).
   - Anmeldelse (tekst + karakter 1-5) for færdiglæste bøger.
   - Indlæg/Blog: Markdown-baserede posts.
   - CI/CD: GitHub Actions der validerer JSON, bygger og deployer til statichost.eu.
@@ -52,7 +52,7 @@ Jeg udarbejder en præcis PRD for tsundoku.dk inkl. simpel SSG-anbefaling og åb
 - Besøgende:
   - Gå til Bibliotek.
   - Skift mellem kort-/listevisning.
-  - Filtrér på type eller status (valgfri).
+  - Filtrér på format/anskaffelse eller status (valgfri).
   - Klik på bog for detaljevisning (valgfri).
   - Læs indlæg om tsundoku og baggrund.
 
@@ -60,7 +60,7 @@ Jeg udarbejder en præcis PRD for tsundoku.dk inkl. simpel SSG-anbefaling og åb
 - Forside: Kort intro til tsundoku + genvej til Bibliotek og Indlæg.
 - Bibliotek:
   - Toggle: Kort/List.
-  - Filtre: Type (fysisk-ny/fysisk-brugt/ebog/lydbog), Status (ikke startet/i gang/færdig).
+  - Filtre: Format (fysisk/ebog/lydbog), Anskaffelse (ny/brugt/lånt), Status (ikke startet/i gang/færdig).
   - Sortering (valgfri): Titel, Forfatter (A→Å).
   - Søg (valgfri, klient-side).
 - Bogdetalje (valgfri rute): Egen side per bog, især nyttig ved længere anmeldelser.
@@ -76,7 +76,8 @@ Jeg udarbejder en præcis PRD for tsundoku.dk inkl. simpel SSG-anbefaling og åb
   - slug: string (url-venlig)
   - title: string
   - authors: string[] (min. én)
-  - type: enum ["physical-new","physical-used","ebook","audiobook"]
+  - format: enum ["physical","ebook","audiobook"]
+  - acquisition: enum ["new","used","borrowed"]
   - purchase_reason: string
   - status: enum ["not-started","reading","finished"]
   - finished_at: string (YYYY-MM-DD, påkrævet hvis status=finished)
@@ -92,7 +93,8 @@ Jeg udarbejder en præcis PRD for tsundoku.dk inkl. simpel SSG-anbefaling og åb
       "slug": "meditations",
       "title": "Meditations",
       "authors": ["Marcus Aurelius"],
-      "type": "physical-used",
+  "format": "physical",
+  "acquisition": "used",
       "purchase_reason": "Anbefalet som stoisk klassiker.",
       "status": "finished",
       "finished_at": "2025-08-14",
@@ -105,7 +107,8 @@ Jeg udarbejder en præcis PRD for tsundoku.dk inkl. simpel SSG-anbefaling og åb
       "slug": "the-nicomachean-ethics",
       "title": "Nicomachean Ethics",
       "authors": ["Aristotle"],
-      "type": "ebook",
+  "format": "ebook",
+  "acquisition": "new",
       "purchase_reason": "Dybde omkring dydsetik.",
       "status": "reading"
     }
@@ -115,9 +118,9 @@ JSON-validering: En JSON Schema-fil i repo (f.eks. `schema/books.schema.json`) b
 
 ### Funktionelle krav
 - Biblioteksliste:
-  - Viser alle bøger med felter: titel, forfatter(e), type, status, rating (hvis findes).
+  - Viser alle bøger med felter: titel, forfatter(e), format, anskaffelse, status, rating (hvis findes).
   - Toggle mellem kort og liste; huskes via localStorage.
-  - Filtre på type og status.
+  - Filtre på format, anskaffelse og status.
   - Vis badge/ikon for “i gang” og “færdig”.
 - Bogdetalje (hvis implementeret):
   - Viser alle felter inkl. købsmotivation, anmeldelse og dato for færdig.
@@ -149,8 +152,8 @@ JSON-validering: En JSON Schema-fil i repo (f.eks. `schema/books.schema.json`) b
 ### Designprincipper
 - Minimalistisk, moderne, rolig typografi (system font stack eller en enkelt webfont).
 - Lys/dunkel-tilstand (valgfri) med CSS-variabler.
-- Tydelige badges for status og type.
-- Kortlayout: omslag (hvis tilgængeligt), titel, forfatter, type/status, rating.
+- Tydelige badges for status, format og anskaffelse.
+- Kortlayout: omslag (hvis tilgængeligt), titel, forfatter, format/anskaffelse/status, rating.
 - Liste: kompakt række med samme nøglefelter.
 
 ### Teknisk arkitektur
@@ -187,9 +190,9 @@ JSON-validering: En JSON Schema-fil i repo (f.eks. `schema/books.schema.json`) b
 
 ### Accepttest-kriterier
 - Når `data/books.json` ændres, bygges og deployes sitet automatisk uden fejl.
-- Bibliotekssiden viser alle bøger fra JSON med korrekt type/status.
+- Bibliotekssiden viser alle bøger fra JSON med korrekt format/anskaffelse/status.
 - Skift mellem kort- og listevisning virker og huskes ved reload.
-- Filtre for type og status virker og kombineres korrekt.
+- Filtre for format, anskaffelse og status virker og kombineres korrekt.
 - Færdiglæste bøger viser dato og rating (hvis sat) i både liste og detalje.
 - Mindst ét indlæg rendres korrekt.
 - Sitet er responsivt, tilgængeligt (tastaturnavigation), og loader hurtigt.
@@ -326,7 +329,8 @@ Schema (opdateret og konkret):
 - slug: string (url-venlig)
 - title: string
 - authors: string[] (min 1)
-- type: enum ["physical-new","physical-used","ebook","audiobook"]
+- format: enum ["physical","ebook","audiobook"]
+- acquisition: enum ["new","used","borrowed"]
 - purchase_reason: string
 - status: enum ["not-started","reading","finished"]
 - finished_at: string (YYYY-MM-DD; påkrævet hvis status=finished)
@@ -342,7 +346,7 @@ Vi tilføjer `schema/books.schema.json` og validerer i CI. Billeder ligger under
 - Bibliotek:
   - Render fra `data/books.json`.
   - Toggle kort/list (gemmes i localStorage).
-  - Klientside filtrering: titel, forfatter, status.
+  - Klientside filtrering: titel, forfatter, format, anskaffelse, status.
   - Vis status-badges (fx “I gang”, “Færdig”).
   - Rating-stjerner (udfyldt = 1–5).
 - Bogdetaljer:
@@ -372,7 +376,7 @@ Vi tilføjer `schema/books.schema.json` og validerer i CI. Billeder ligger under
   - Kort: subtil skygge, border-radius 8px, hover-elevation.
   - Badges: bløde farver pr. status (reading = gul/amber subtil; finished = grøn).
   - Toggle + filterfelt: kompakte input, sticky filterbar på mobil.
-- Ikoner: CSS/emoji eller små inline SVGs for status/type (ingen lib).
+- Ikoner: CSS/emoji eller små inline SVGs for status/format/anskaffelse (ingen lib).
 
 ### Teknisk anbefaling (SSG)
 - Primær: Hugo
@@ -400,13 +404,13 @@ Vi tilføjer `schema/books.schema.json` og validerer i CI. Billeder ligger under
 ### Milepæle
 - M1: Hugo skeleton + tema-variabler + navigation.
 - M2: Data-model + schema + eksempeldata + liste/kort UI.
-- M3: Filtre (titel/forfatter/status) + modal detalje.
+- M3: Filtre (titel/forfatter/format/anskaffelse/status) + modal detalje.
 - M4: Indlæg + første artikel “Hvad er tsundoku?”.
 - M5: CI validate/build + deploy til statichost.eu.
 - M6: Finpudsning, SEO, sitemap, README.
 
 ### Acceptkriterier (opdateret)
-- Filtre fungerer klient-side for titel/forfatter/status med debounced søg.
+- Filtre fungerer klient-side for titel/forfatter/format/anskaffelse/status med debounced søg.
 - Modal er tilgængelig og viser alle felter inkl. review/rating/dato.
 - Billeder indlæses fra images og vises med naturlig fallback hvis mangler.
 - Deploy kører via statichost.eu GitHub Action uden manuel indgriben.

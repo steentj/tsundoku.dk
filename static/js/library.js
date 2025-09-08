@@ -4,7 +4,8 @@
     view: localStorage.getItem('view') || 'cards',
     qTitle: '',
     qAuthor: '',
-    qType: '',
+  qFormat: '',
+  qAcq: '',
     qStatus: '',
     qSort: localStorage.getItem('sort') || 'title'
   };
@@ -31,10 +32,23 @@
   const elCount = $('#resultsCount');
   const elFilters = $('#filters');
 
+  // Danish labels for enums
+  const LABELS = {
+    format: { physical: 'Fysisk', ebook: 'E-bog', audiobook: 'Lydbog' },
+    acquisition: { new: 'Ny', used: 'Brugt', borrowed: 'Lånt' },
+    status: { 'not-started': 'Ikke startet', reading: 'I gang', finished: 'Færdig' }
+  };
+  const label = (kind, val) => {
+    if(!val) return '';
+    const m = LABELS[kind] || {};
+    return m[val] || String(val);
+  };
+
   // Inputs
   const qTitle = $('#qTitle');
   const qAuthor = $('#qAuthor');
-  const qType = $('#qType');
+  const qFormat = $('#qFormat');
+  const qAcq = $('#qAcq');
   const qStatus = $('#qStatus');
   const qSort = $('#qSort');
 
@@ -56,7 +70,8 @@
   // Filtering
   function normalize(s){ return (s||'').toLowerCase(); }
   function matches(b){
-    if(state.qType && b.type !== state.qType) return false;
+  if(state.qFormat && b.format !== state.qFormat) return false;
+  if(state.qAcq && b.acquisition !== state.qAcq) return false;
     if(state.qStatus && b.status !== state.qStatus) return false;
     const t = normalize(state.qTitle);
     const a = normalize(state.qAuthor);
@@ -110,8 +125,9 @@
   };
   const badges = (b) => {
     const status = b.status==='reading' ? '<span class="badge reading">I gang</span>' : (b.status==='finished' ? '<span class="badge finished">Færdig</span>' : '');
-    const type = b.type? `<span class="badge">${esc(b.type)}</span>`: '';
-    return `<div class="badges">${status}${type}</div>`;
+    const fmt = b.format? `<span class="badge">${esc(label('format', b.format))}</span>`: '';
+    const acq = b.acquisition? `<span class="badge">${esc(label('acquisition', b.acquisition))}</span>`: '';
+    return `<div class="badges">${status}${fmt}${acq}</div>`;
   };
 
   function card(b){
@@ -144,8 +160,9 @@
   ${img(b.cover_image, b.title, b.authors)}
       <div>
         <div><strong>Forfatter(e):</strong> ${esc((b.authors||[]).join(', '))}</div>
-        <div><strong>Type:</strong> ${esc(b.type||'')}</div>
-        <div><strong>Status:</strong> ${esc(b.status||'')}</div>
+        <div><strong>Format:</strong> ${esc(label('format', b.format)||'')}</div>
+        <div><strong>Anskaffelse:</strong> ${esc(label('acquisition', b.acquisition)||'')}</div>
+        <div><strong>Status:</strong> ${esc(label('status', b.status)||'')}</div>
         ${f('Færdig', b.finished_at)}
         ${f('Begrundelse', b.purchase_reason)}
         ${f('Tags', (b.tags||[]).join(', '))}
@@ -203,14 +220,15 @@
   const applyFilters = debounce(() => {
     state.qTitle = qTitle.value.trim();
     state.qAuthor = qAuthor.value.trim();
-    state.qType = qType.value;
+  state.qFormat = qFormat.value;
+  state.qAcq = qAcq.value;
     state.qStatus = qStatus.value;
     state.qSort = qSort.value;
     localStorage.setItem('sort', state.qSort);
     render();
   }, 120);
   [qTitle, qAuthor].forEach(i => i.addEventListener('input', applyFilters));
-  [qType, qStatus, qSort].forEach(i => i.addEventListener('change', applyFilters));
+  [qFormat, qAcq, qStatus, qSort].forEach(i => i.addEventListener('change', applyFilters));
 
   // Init
   console.debug('Library init: bøger i JSON =', books.length);
