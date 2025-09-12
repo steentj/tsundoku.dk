@@ -5,6 +5,7 @@ enableRobotsTXT = true
 
 [params]
   description = "Et minimalistisk bibliotek over bøger jeg har købt og hvorfor."
+  assetVersion = "2"
 
 [outputs]
   home = ["HTML", "RSS"]

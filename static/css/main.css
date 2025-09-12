@@ -43,7 +43,8 @@ body {
 }
 .container { max-width: 1000px; margin: 0 auto; padding: 1.25rem; }
 .site-header .nav { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 1.25rem; border-bottom: 1px solid var(--border); }
-.nav .brand { font-weight: 700; text-decoration: none; color: var(--fg); }
+.nav .brand { display:flex; align-items:center; gap: 0.5rem; font-weight: 700; text-decoration: none; color: var(--fg); }
+.brand-logo { width: 24px; height: 24px; display: inline-block; vertical-align: middle; }
 .nav a { color: var(--fg); text-decoration: none; opacity: 0.9; }
 .nav a:hover { opacity: 1; }
 .nav .spacer { flex: 1; }
@@ -61,8 +62,8 @@ p { margin: 0.5rem 0 1rem; }
 .section-header { display: flex; align-items: center; gap: 1rem; justify-content: space-between; }
 .view-toggle { display: inline-flex; gap: 0.25rem; }
 
-.filters { display: grid; grid-template-columns: repeat(6, minmax(0,1fr)); gap: 0.75rem; align-items: end; margin: 1rem 0; }
-.filters label { display: grid; gap: 0.25rem; font-size: 0.9rem; }
+.filters { display: grid; grid-template-columns: repeat(6, minmax(0,1fr)); gap: 1rem; align-items: end; margin: 1rem 0; }
+.filters label { display: grid; gap: 0.4rem; font-size: 0.9rem; }
 .filters input, .filters select { padding: 0.5rem 0.6rem; border:1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--fg); }
 .filters .spacer { display: none; }
 @media (max-width: 680px) {
@@ -92,4 +93,10 @@ p { margin: 0.5rem 0 1rem; }
 #bookModal::backdrop { background: rgba(0,0,0,0.5); }
 #bookModal article header { display:flex; align-items:center; justify-content: space-between; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); }
 #bookModal article { display:grid; }
-#bookModal #bookDetails { padding: 1rem; display:grid; gap: 0.5rem; }
+#bookModal #bookDetails { padding: 1rem; display:grid; gap: 0.75rem; grid-template-columns: 1fr; }
+/* Smaller, responsive cover image in modal */
+#bookModal #bookDetails img { width: min(50%, 220px); height: auto; border-radius: 8px; justify-self: start; }
+@media (min-width: 720px) {
+  #bookModal #bookDetails { grid-template-columns: 220px 1fr; gap: 1rem 1.25rem; }
+  #bookModal #bookDetails img { width: 220px; }
+}

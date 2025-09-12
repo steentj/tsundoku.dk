@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Safari pinned tab mask icon: black shapes used as mask -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#000"/>
+  <g fill="#000">
+    <path d="M140 180h232v48H140zM236 228h48v160h-48z"/>
+  </g>
+</svg>
