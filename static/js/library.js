@@ -52,6 +52,34 @@
   const qStatus = $('#qStatus');
   const qSort = $('#qSort');
 
+  // Size selects to longest option label (desktop), CSS overrides to full width on small screens
+  const selects = [qFormat, qAcq, qStatus, qSort].filter(Boolean);
+  function adjustSelectWidth(sel){
+    try {
+      const cs = getComputedStyle(sel);
+      const font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+      const canvas = adjustSelectWidth._canvas || (adjustSelectWidth._canvas = document.createElement('canvas'));
+      const ctx = canvas.getContext('2d');
+      ctx.font = font;
+      const texts = Array.from(sel.options).map(o => o.text || '');
+      const maxText = texts.reduce((a,b)=> (ctx.measureText(a).width > ctx.measureText(b).width ? a : b), '');
+      const textW = ctx.measureText(maxText).width;
+      const padL = parseFloat(cs.paddingLeft) || 0;
+      const padR = parseFloat(cs.paddingRight) || 0;
+      const bordL = parseFloat(cs.borderLeftWidth) || 0;
+      const bordR = parseFloat(cs.borderRightWidth) || 0;
+      const arrow = 28; // space for dropdown arrow
+      const total = Math.ceil(textW + padL + padR + bordL + bordR + arrow);
+      sel.style.width = total + 'px';
+    } catch(e) { /* noop */ }
+  }
+  function adjustAllSelects(){ selects.forEach(adjustSelectWidth); }
+  if(selects.length){
+    adjustAllSelects();
+    selects.forEach(s => s.addEventListener('change', ()=> adjustSelectWidth(s)));
+    window.addEventListener('resize', debounce(adjustAllSelects, 150));
+  }
+
   // View toggle buttons
   const btns = $$('.view-toggle [data-view]');
   function updateViewButtons(){
