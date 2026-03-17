@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tsundoku</title>
+  <meta name="description" content="Mit personlige bibliotek">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="/" class="logo">
+        <span class="logo-title">Tsundoku</span>
+        <span class="logo-sub" data-i18n="tagline">Mit personlige bibliotek</span>
+      </a>
+      <div class="header-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Skift sprog">EN</button>
+        <div class="view-toggle" role="group" aria-label="Visningsformat">
+          <button class="view-btn active" id="btnGrid" title="Gittervisning" aria-pressed="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+              <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+            </svg>
+          </button>
+          <button class="view-btn" id="btnList" title="Listevisning" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="filter-bar" role="search">
+      <div class="status-chips" role="group" aria-label="Filtrer efter hylde">
+        <button class="chip active" data-status="all" data-i18n="all" aria-pressed="true">Alle</button>
+        <button class="chip" data-status="bought" data-i18n="status_bought" aria-pressed="false">Købt</button>
+        <button class="chip" data-status="reading" data-i18n="status_reading_short" aria-pressed="false">Igang</button>
+        <button class="chip" data-status="finished" data-i18n="status_finished" aria-pressed="false">Læst</button>
+        <button class="chip" data-status="abandoned" data-i18n="status_abandoned" aria-pressed="false">Opgivet</button>
+      </div>
+      <div class="filter-controls">
+        <select id="typeFilter" aria-label="Filtrer efter type">
+          <option value="all" data-i18n-option="all_types">Alle typer</option>
+          <option value="fiktion" data-i18n-option="type_fiktion">Fiktion</option>
+          <option value="faglitteratur" data-i18n-option="type_faglitteratur">Faglitteratur</option>
+          <option value="poesi" data-i18n-option="type_poesi">Poesi</option>
+          <option value="andet" data-i18n-option="type_andet">Andet</option>
+        </select>
+        <select id="sortSelect" aria-label="Sortering">
+          <option value="bought_desc" data-i18n-option="sort_bought_desc">Nyeste købt</option>
+          <option value="bought_asc" data-i18n-option="sort_bought_asc">Ældste købt</option>
+          <option value="title_asc" data-i18n-option="sort_title_asc">Titel A–Å</option>
+          <option value="author_asc" data-i18n-option="sort_author_asc">Forfatter A–Å</option>
+          <option value="rating_desc" data-i18n-option="sort_rating_desc">Bedste rating</option>
+        </select>
+        <div class="search-wrap">
+          <input type="search" id="searchInput"
+            data-i18n-placeholder="search_placeholder"
+            placeholder="Søg efter titel, forfatter, ISBN eller tag…"
+            aria-label="Søg i biblioteket">
+        </div>
+      </div>
+    </div>
+
+    <div class="results-bar">
+      <span id="resultsCount" aria-live="polite" aria-atomic="true"></span>
+    </div>
+
+    <div id="bookContainer" class="book-grid" role="list"></div>
+  </main>
+
+  <div class="modal-overlay" id="modalOverlay" hidden role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <button class="modal-close" id="modalClose" aria-label="Luk">&times;</button>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p data-i18n="footer">© Steen &mdash; Tsundoku.dk</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
