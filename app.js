@@ -233,7 +233,7 @@ function applyFilters() {
       case 'bought_asc':
         return cmpDate(a.bought_date, b.bought_date);
       case 'title_asc':
-        return a.title.localeCompare(b.title, lang);
+        return (a.title ?? '').localeCompare(b.title ?? '', lang);
       case 'author_asc':
         return (a.authors?.[0] ?? '').localeCompare(b.authors?.[0] ?? '', lang);
       case 'rating_desc':
