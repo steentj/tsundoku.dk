@@ -1,0 +1,53 @@
+I want to develop a static website named "tsundoku.dk". I already own the domain name. When finished it must be hosted on statichost.eu on their free plan. GitHub actions must be made to deploy automatically.
+the site contains a library of my books with a tracking of the state from bought to read. the possible states are "købt", "igang med at læse", "læst", "opgivet". A book must have these fields as in this example json:
+"""
+[
+  {
+    "id": "bk-0001",
+    "slug": "meditations",
+    "title": "Meditations",
+    "isbn": "1234567890",
+    "authors": ["Marcus Aurelius"],
+    "format": "physical",
+    "acquisition": "used",
+    "purchase_reason": "Anbefalet som stoisk klassiker.",
+    "status": "finished",
+    "bought_date": "2023-01-28",
+    "reading_started: "2023-11-02",
+    "finished_at": "2024-08-14",
+    "review_text": "Kort, skarp og tidløs.",
+    "rating": 5,
+    "tags": ["stoicism", "philosophy"],
+    "cover_image": "images/placeholder.png"
+  }
+]
+"""
+The books must be shown in a grid or a list as specified by the user. if shown as a grid the book cover is shown with the title and author superimposed on in.
+it must be possible to sort by status, type (fiction, non fiction, poetry, other), date bought.
+it must be possible to filter/search by author, title, status, tag(s)
+Status may also be called shelf (Hylde in Danish).
+All text must be in Danish by default with the option to select English.
+books are for now maintained in a json file. the maintenance happens externally to the site which is read-only.
+the site must be simple and modern, inspiration below:
+
+/* Color Theme Swatches in Hex */
+.tangerine-1-hex { color: #003547; }
+.tangerine-2-hex { color: #005E54; }
+.tangerine-3-hex { color: #C2BB00; }
+.tangerine-4-hex { color: #E1523D; }
+.tangerine-5-hex { color: #ED8B16; }
+
+/* Color Theme Swatches in RGBA */
+.tangerine-1-rgba { color: rgba(0, 52, 71, 1); }
+.tangerine-2-rgba { color: rgba(0, 94, 83, 1); }
+.tangerine-3-rgba { color: rgba(193, 186, 0, 1); }
+.tangerine-4-rgba { color: rgba(225, 82, 61, 1); }
+.tangerine-5-rgba { color: rgba(237, 139, 21, 1); }
+
+/* Color Theme Swatches in HSLA */
+.tangerine-1-hsla { color: hsla(195, 100, 14, 1); }
+.tangerine-2-hsla { color: hsla(173, 100, 18, 1); }
+.tangerine-3-hsla { color: hsla(57, 100, 38, 1); }
+.tangerine-4-hsla { color: hsla(7, 73, 56, 1); }
+.tangerine-5-hsla { color: hsla(32, 85, 50, 1); }
+
