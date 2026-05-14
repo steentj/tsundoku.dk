@@ -285,7 +285,7 @@ function renderBooks() {
 }
 
 function renderCard(book) {
-  const cover  = book.cover_image || 'images/placeholder.png';
+  const cover  = 'images/' + (book.cover_image || 'placeholder.png');
   const author = (book.authors ?? []).join(', ');
   return `
     <article class="book-item book-card" tabindex="0" role="listitem"
@@ -304,7 +304,7 @@ function renderCard(book) {
 }
 
 function renderRow(book) {
-  const cover  = book.cover_image || 'images/placeholder.png';
+  const cover  = 'images/' + (book.cover_image || 'placeholder.png');
   const author = (book.authors ?? []).join(', ');
   return `
     <div class="book-item book-row" tabindex="0" role="listitem"
@@ -358,7 +358,7 @@ function openModal(book) {
   const body    = $('#modalBody');
   if (!overlay || !body) return;
 
-  const cover       = book.cover_image || 'images/placeholder.png';
+  const cover       = 'images/' + (book.cover_image || 'placeholder.png');
   const author      = (book.authors ?? []).join(', ') || '—';
   const formatLabel = t(`format_${book.format}`) || book.format || '—';
   const acqLabel    = book.acquisition ? t(`acquisition_${book.acquisition}`) || book.acquisition : '';

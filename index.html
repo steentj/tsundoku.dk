@@ -72,7 +72,17 @@
       <span id="resultsCount" aria-live="polite" aria-atomic="true"></span>
     </div>
 
-    <div id="bookContainer" class="book-grid" role="list"></div>
+    <div id="bookContainer" class="book-grid" role="list">
+      <!-- Example book item -->
+      <div class="book-item" role="listitem">
+        <img src="images/example-cover.jpg" alt="Book Cover" class="book-cover">
+        <div class="book-details">
+          <h3 class="book-title">Eksempel Titel</h3>
+          <p class="book-author">Forfatter Navn</p>
+        </div>
+      </div>
+      <!-- Additional book items will be dynamically added here -->
+    </div>
   </main>
 
   <div class="modal-overlay" id="modalOverlay" hidden role="dialog" aria-modal="true" aria-labelledby="modalTitle">
