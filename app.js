@@ -3,7 +3,7 @@
 // ── Translations ──────────────────────────────────────────────────────────────
 const TRANSLATIONS = {
   da: {
-    tagline:           'Mit personlige bibliotek',
+    tagline:           'Mit anti-bibliotek',
     all:               'Alle',
     status_bought:     'Købt',
     status_reading:    'Igang med at læse',
@@ -42,9 +42,16 @@ const TRANSLATIONS = {
     list_view:         'Listevisning',
     footer:            '© Steen \u2014 Tsundoku.dk',
     load_error:        'Kunne ikke indlæse bøger.',
+    about_title:       'Om Tsundoku',
+    about_p1:          'Tsundoku.dk er et blik ind i mit personlige bibliotek \u2013 en oversigt over de b\u00f8ger, jeg har k\u00f8bt, men endnu ikke har f\u00e5et l\u00e6st. Siden giver mig overblik over samlingen og prikker til min d\u00e5rlige samvittighed over at k\u00f8be for mange b\u00f8ger.',
+    about_p2:          '\ud83d\ude00 Men det handler ikke kun om skyldf\u00f8lelse; det handler ogs\u00e5 om gl\u00e6den ved at have en samling af b\u00f8ger, der venter p\u00e5 at blive udforsket.',
+    about_section:     'Hvad betyder Tsundoku?',
+    about_p3:          'Tsundoku (\u7a4d\u3093\u8aad) er et japansk ord, der beskriver vanen med at k\u00f8be b\u00f8ger og samle dem, uden at n\u00e5 at l\u00e6se dem. Ordet er sammensat af <em>tsunde oku</em> (\u7a4d\u3093\u3067\u304a\u304f &ndash; at stable til side) og <em>doku</em> (\u8aad &ndash; l\u00e6sning). Det bruges med et glimt i \u00f8jet om den gl\u00e6de og melankoli, der f\u00f8lger med at have mange ul\u00e6ste b\u00f8ger st\u00e5ende p\u00e5 hylden.',
+    about_p4:          'P.s. Dette er kun en lille del af min samling og en lille del af min backlog.',
+    about_p5:          'P.p.s. L\u00e6s ogs\u00e5 om <i><a href="https://en.wikipedia.org/wiki/Antilibrary" target="_blank" rel="noopener noreferrer">Antilibrary</a></i>',
   },
   en: {
-    tagline:           'My personal library',
+    tagline:           'My anti-library',
     all:               'All',
     status_bought:     'Bought',
     status_reading:    'Currently reading',
@@ -83,6 +90,13 @@ const TRANSLATIONS = {
     list_view:         'List view',
     footer:            '© Steen \u2014 Tsundoku.dk',
     load_error:        'Failed to load books.',
+    about_title:       'About Tsundoku',
+    about_p1:          'Tsundoku.dk is a glimpse into my personal library \u2013 an overview of the books I have bought but not yet gotten around to reading. The site gives me an overview of the collection and pokes at my guilty conscience for buying too many books.',
+    about_p2:          '\ud83d\ude00 But it is not just about guilt; it is also about the joy of having a collection of books waiting to be explored.',
+    about_section:     'What does Tsundoku mean?',
+    about_p3:          'Tsundoku (\u7a4d\u3093\u8aad) is a Japanese word that describes the habit of buying books and letting them pile up, without ever getting around to reading them. The word is composed of <em>tsunde oku</em> (\u7a4d\u3093\u3067\u304a\u304f &ndash; to pile up and set aside) and <em>doku</em> (\u8aad &ndash; reading). It is used with a wink about the joy and melancholy of having many unread books on the shelf.',
+    about_p4:          'P.s. This is only a small part of my collection and a small part of my backlog.',
+    about_p5:          'P.p.s. Also read about <i><a href="https://en.wikipedia.org/wiki/Antilibrary" target="_blank" rel="noopener noreferrer">Antilibrary</a></i>',
   },
 };
 
@@ -145,6 +159,13 @@ function applyLang(rerender = true) {
     const key = el.dataset.i18n;
     const val = TRANSLATIONS[lang][key];
     if (val && typeof val !== 'function') el.textContent = val;
+  });
+
+  // Rich HTML elements (about page content)
+  $$('[data-i18n-html]').forEach(el => {
+    const key = el.dataset.i18nHtml;
+    const val = TRANSLATIONS[lang][key];
+    if (val && typeof val !== 'function') el.innerHTML = val;
   });
 
   // Placeholder attributes
