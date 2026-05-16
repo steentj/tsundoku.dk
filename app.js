@@ -10,13 +10,13 @@ const TRANSLATIONS = {
     status_reading_short: 'Igang',
     status_finished:   'Læst',
     status_abandoned:  'Opgivet',
-    type_fiktion:      'Fiktion',
-    type_faglitteratur:'Faglitteratur',
-    type_poesi:        'Poesi',
-    type_andet:        'Andet',
-    all_types:         'Alle typer',
-    sort_bought_desc:  'Nyeste købt',
-    sort_bought_asc:   'Ældste købt',
+    genre_fiction:        'Fiktion',
+    'genre_non-fiction':  'Faglitteratur',
+    genre_biography:      'Biografi',
+    genre_poetry:         'Poesi',
+    all_types:            'Alle typer',
+    sort_added_desc:      'Senest tilføjet',
+    sort_added_asc:       'Ældste tilføjet',
     sort_title_asc:    'Titel A–Å',
     sort_author_asc:   'Forfatter A–Å',
     sort_rating_desc:  'Bedste rating',
@@ -28,11 +28,8 @@ const TRANSLATIONS = {
     modal_type:        'Type',
     modal_format:      'Format',
     modal_status:      'Hylde',
-    modal_bought:      'Købt',
-    modal_started:     'Begyndt',
     modal_finished:    'Afsluttet',
     modal_reason:      'Grund til køb',
-    modal_description: 'Beskrivelse',
     modal_review:      'Anmeldelse',
     modal_rating:      'Rating',
     modal_tags:        'Tags',
@@ -41,8 +38,6 @@ const TRANSLATIONS = {
     format_audiobook:  'Lydbog',
     acquisition_new:   'Ny',
     acquisition_used:  'Brugt',
-    acquisition_gift:  'Gave',
-    acquisition_library: 'Bibliotek',
     grid_view:         'Gittervisning',
     list_view:         'Listevisning',
     footer:            '© Steen \u2014 Tsundoku.dk',
@@ -56,13 +51,13 @@ const TRANSLATIONS = {
     status_reading_short: 'Reading',
     status_finished:   'Read',
     status_abandoned:  'Abandoned',
-    type_fiktion:      'Fiction',
-    type_faglitteratur:'Non-fiction',
-    type_poesi:        'Poetry',
-    type_andet:        'Other',
-    all_types:         'All types',
-    sort_bought_desc:  'Newest purchased',
-    sort_bought_asc:   'Oldest purchased',
+    genre_fiction:        'Fiction',
+    'genre_non-fiction':  'Non-fiction',
+    genre_biography:      'Biography',
+    genre_poetry:         'Poetry',
+    all_types:            'All types',
+    sort_added_desc:      'Newest added',
+    sort_added_asc:       'Oldest added',
     sort_title_asc:    'Title A–Z',
     sort_author_asc:   'Author A–Z',
     sort_rating_desc:  'Highest rated',
@@ -74,11 +69,8 @@ const TRANSLATIONS = {
     modal_type:        'Type',
     modal_format:      'Format',
     modal_status:      'Shelf',
-    modal_bought:      'Purchased',
-    modal_started:     'Started reading',
     modal_finished:    'Finished',
     modal_reason:      'Purchase reason',
-    modal_description: 'Description',
     modal_review:      'Review',
     modal_rating:      'Rating',
     modal_tags:        'Tags',
@@ -87,8 +79,6 @@ const TRANSLATIONS = {
     format_audiobook:  'Audiobook',
     acquisition_new:   'New',
     acquisition_used:  'Used',
-    acquisition_gift:  'Gift',
-    acquisition_library: 'Library',
     grid_view:         'Grid view',
     list_view:         'List view',
     footer:            '© Steen \u2014 Tsundoku.dk',
@@ -112,7 +102,7 @@ let books        = [];
 let filtered     = [];
 let activeStatus = 'all';
 let activeType   = 'all';
-let sortBy       = 'bought_desc';
+let sortBy       = 'added_desc';
 let searchQuery  = '';
 
 // Translate helper
@@ -214,7 +204,7 @@ function applyFilters() {
 
   filtered = books.filter(b => {
     if (activeStatus !== 'all' && b.status !== activeStatus) return false;
-    if (activeType   !== 'all' && b.type   !== activeType)   return false;
+    if (activeType   !== 'all' && b.genre  !== activeType)   return false;
     if (q) {
       const hit =
         b.title?.toLowerCase().includes(q) ||
@@ -228,10 +218,10 @@ function applyFilters() {
 
   filtered.sort((a, b) => {
     switch (sortBy) {
-      case 'bought_desc':
-        return cmpDate(b.bought_date, a.bought_date);
-      case 'bought_asc':
-        return cmpDate(a.bought_date, b.bought_date);
+      case 'added_desc':
+        return b.id.localeCompare(a.id);
+      case 'added_asc':
+        return a.id.localeCompare(b.id);
       case 'title_asc':
         return (a.title ?? '').localeCompare(b.title ?? '', lang);
       case 'author_asc':
@@ -295,7 +285,7 @@ function renderCard(book) {
       <div class="card-overlay">
         <div class="card-badges">
           ${statusBadge(book.status)}
-          ${book.type ? typeBadge(book.type, 'card') : ''}
+          ${book.genre ? typeBadge(book.genre, 'card') : ''}
         </div>
         <h2 class="card-title">${esc(book.title)}</h2>
         <p class="card-author">${esc(author)}</p>
@@ -316,7 +306,7 @@ function renderRow(book) {
         <p class="row-author">${esc(author)}</p>
       </div>
       <div class="row-meta">
-        ${book.type ? typeBadge(book.type, 'row') : ''}
+        ${book.genre ? typeBadge(book.genre, 'row') : ''}
         ${statusBadge(book.status)}
         ${book.rating ? `<span class="row-stars">${renderStars(book.rating)}</span>` : ''}
       </div>
@@ -329,7 +319,7 @@ function statusBadge(status) {
 }
 
 function typeBadge(type, context = 'card') {
-  const label = t(`type_${type}`) || type;
+  const label = t(`genre_${type}`) || type;
   return `<span class="badge badge-type">${esc(label)}</span>`;
 }
 
@@ -366,11 +356,9 @@ function openModal(book) {
   const metaRows = [
     [t('modal_author'),  esc(author)],
     book.isbn            ? [t('modal_isbn'),   esc(book.isbn)] : null,
-    book.type            ? [t('modal_type'),   t(`type_${book.type}`)] : null,
+    book.genre           ? [t('modal_type'),   t(`genre_${book.genre}`)] : null,
     [t('modal_format'),  esc(formatLabel) + (acqLabel ? ` · ${esc(acqLabel)}` : '')],
     [t('modal_status'),  statusBadge(book.status)],
-    book.bought_date     ? [t('modal_bought'),   fmtDate(book.bought_date)]   : null,
-    book.reading_started ? [t('modal_started'),  fmtDate(book.reading_started)] : null,
     book.finished_at     ? [t('modal_finished'), fmtDate(book.finished_at)]   : null,
     book.purchase_reason ? [t('modal_reason'),   esc(book.purchase_reason)]   : null,
   ].filter(Boolean);
@@ -379,13 +367,6 @@ function openModal(book) {
     ? `<div class="modal-section">
          <h3>${t('modal_tags')}</h3>
          <div class="modal-tags">${book.tags.map(tag => `<span class="tag">${esc(tag)}</span>`).join('')}</div>
-       </div>`
-    : '';
-
-  const descHtml = book.description
-    ? `<div class="modal-section">
-         <h3>${t('modal_description')}</h3>
-         <p>${esc(book.description)}</p>
        </div>`
     : '';
 
@@ -407,7 +388,6 @@ function openModal(book) {
       <table class="modal-meta">
         ${metaRows.map(([lbl, val]) => `<tr><th>${lbl}</th><td>${val}</td></tr>`).join('')}
       </table>
-      ${descHtml}
       ${reviewHtml}
       ${tagsHtml}
     </div>`;

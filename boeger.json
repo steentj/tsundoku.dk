@@ -4,9 +4,10 @@
     "authors" : [
       "Jon Fosse"
     ],
-    "cover_image" : "bk-0001-0A4E7434-C0D4-467E-B26C-022B928F326D.jpg",
+    "cover_image" : "bk-0001-08CC4FE5-7FEC-44F2-BBA5-C39B1B00DB92.jpg",
     "finished_at" : "2026-02-03",
     "format" : "physical",
+    "genre" : "fiction",
     "id" : "bk-0001",
     "isbn" : "9788785278043",
     "language" : "da",
@@ -22,9 +23,10 @@
     "authors" : [
       "Sophus Helle"
     ],
-    "cover_image" : "placeholder.png",
-    "finished_at" : "06-02-2026",
+    "cover_image" : "images\/placeholder.png",
+    "finished_at" : "2026-02-06",
     "format" : "physical",
+    "genre" : "poetry",
     "id" : "bk-0002",
     "isbn" : "9788727140797",
     "language" : "da",
@@ -46,12 +48,45 @@
     ],
     "cover_image" : "bk-0003-B00D5438-A6DE-4C64-BE8F-D53E2ED30E59.jpg",
     "format" : "physical",
+    "genre" : "non-fiction",
     "id" : "bk-0003",
     "isbn" : "9788741257716",
     "language" : "da",
-    "purchase_reason" : "",
+    "purchase_reason" : "Var til Bogforum, hvor han blev interviewet. Spændende og relevante tanker.",
     "slug" : "fremmedgørelse_og_acceleration",
     "status" : "reading",
     "title" : "Fremmedgørelse og acceleration"
+  },
+  {
+    "acquisition" : "new",
+    "authors" : [
+      "Anne Marie Pahuus"
+    ],
+    "cover_image" : "bk-0004-F214CD60-F03B-4879-9587-15CD02C2879B.jpg",
+    "format" : "physical",
+    "genre" : "biography",
+    "id" : "bk-0004",
+    "isbn" : "9788741005812",
+    "language" : "da",
+    "purchase_reason" : "Læser Arents “Åndens liv” og hun er generelt oppe i tiden og bliver referet mange steder.",
+    "slug" : "hannah_arendt",
+    "status" : "bought",
+    "title" : "Hannah Arendt"
+  },
+  {
+    "acquisition" : "new",
+    "authors" : [
+      "Rune Lykkeberg (red.)"
+    ],
+    "cover_image" : "bk-0005-4B975897-8277-4C72-841D-B49F572C3EFD.jpg",
+    "format" : "physical",
+    "genre" : "biography",
+    "id" : "bk-0005",
+    "isbn" : "9788785381002",
+    "language" : "da",
+    "purchase_reason" : "Arendt er interessant. Læser nogle af hendes skrifter, kommer op på FUKBH kurser.",
+    "slug" : "arendt_for_et_større_publikum",
+    "status" : "bought",
+    "title" : "Arendt for et større publikum"
   }
 ]
