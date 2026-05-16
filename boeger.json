@@ -88,5 +88,37 @@
     "slug" : "arendt_for_et_større_publikum",
     "status" : "bought",
     "title" : "Arendt for et større publikum"
+  },
+  {
+    "acquisition" : "used",
+    "authors" : [
+      "Søren Ulrik Thomsen"
+    ],
+    "cover_image" : "bk-0006-0760A9C2-504D-4D0A-BFE6-D8B4F4CBB1AE.jpg",
+    "format" : "physical",
+    "genre" : "biography",
+    "id" : "bk-0006",
+    "isbn" : "9788702281033",
+    "language" : "da",
+    "purchase_reason" : "Gode anmeldelser for 5 år siden, da den udkom. Trigget af hype omrking hans 70 års fødselsdag.",
+    "slug" : "store_kongensgade_23",
+    "status" : "reading",
+    "title" : "Store Kongensgade 23"
+  },
+  {
+    "acquisition" : "new",
+    "authors" : [
+      "Søren Ulrik Thomsen"
+    ],
+    "cover_image" : "bk-0007-15B9715B-9FB6-42DF-B7F5-CB6F85E3DA20.jpg",
+    "format" : "physical",
+    "genre" : "poetry",
+    "id" : "bk-0007",
+    "isbn" : "9788702453942",
+    "language" : "da",
+    "purchase_reason" : "Har læst flere eneklt digte af ham, når de er blevet citeret i diverse publikationer. Trigget nu af hype omkring hans 70 års fødselsdag.",
+    "slug" : "udvalgte_digte",
+    "status" : "reading",
+    "title" : "Udvalgte digte"
   }
 ]
