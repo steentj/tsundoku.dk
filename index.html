@@ -12,7 +12,7 @@
   <header>
     <div class="header-inner">
       <a href="/" class="logo">
-        <span class="logo-title">Tsundoku</span>
+        <span class="logo-title">Tsundoku<span class="logo-jp">積ん読</span></span>
         <span class="logo-sub" data-i18n="tagline">Mit personlige bibliotek</span>
       </a>
       <div class="header-actions">
@@ -31,6 +31,7 @@
             </svg>
           </button>
         </div>
+        <button class="info-btn" id="btnAbout" aria-label="Om Tsundoku">ⓘ</button>
       </div>
     </div>
   </header>
@@ -84,6 +85,21 @@
       <!-- Additional book items will be dynamically added here -->
     </div>
   </main>
+
+  <div class="modal-overlay" id="aboutOverlay" hidden role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
+    <div class="modal about-modal">
+      <button class="modal-close" id="aboutClose" aria-label="Luk">&times;</button>
+      <div class="about-content">
+        <h2 id="aboutTitle">Om Tsundoku</h2>
+        <span class="about-jp" aria-hidden="true">積ん読</span>
+        <p>Tsundoku.dk er mit personlige bibliotek &ndash; en oversigt over de bøger, jeg har købt, men endnu ikke har nået at læse. 
+          Siden giver mig overblik over samlingen og prikker til min dårlige samvittighed over at købe for mange bøger.</p>
+          <p>Men det handler ikke kun om skyldfølelse; det handler også om glæden ved at have en samling af bøger, der venter på at blive udforsket.</p>
+        <h3>Hvad betyder Tsundoku?</h3>
+        <p>Tsundoku (積ん読) er et japansk ord, der beskriver vanen med at købe bøger og samle dem, uden at nå at læse dem. Ordet er sammensat af <em>tsunde oku</em> (積んでおく &ndash; at stable til side) og <em>doku</em> (読 &ndash; læsning). Det bruges med et glimt i øjet om den glæde og melankoli, der følger med at have mange ulæste bøger stående på hylden.</p>
+      </div>
+    </div>
+  </div>
 
   <div class="modal-overlay" id="modalOverlay" hidden role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal">

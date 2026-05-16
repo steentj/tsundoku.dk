@@ -339,6 +339,21 @@ function esc(str) {
     .replace(/'/g, '&#39;');
 }
 
+// ── About ────────────────────────────────────────────────────────────────────
+function openAbout() {
+  const overlay = $('#aboutOverlay');
+  if (!overlay) return;
+  overlay.hidden = false;
+  document.body.style.overflow = 'hidden';
+  requestAnimationFrame(() => $('#aboutClose')?.focus());
+}
+
+function closeAbout() {
+  const overlay = $('#aboutOverlay');
+  if (overlay) overlay.hidden = true;
+  document.body.style.overflow = '';
+}
+
 // ── Modal ─────────────────────────────────────────────────────────────────────
 let _modalOpener = null;
 
@@ -419,6 +434,13 @@ function fmtDate(dateStr) {
 
 // ── Event bindings ────────────────────────────────────────────────────────────
 function bindStaticEvents() {
+  // About
+  $('#btnAbout')?.addEventListener('click', openAbout);
+  $('#aboutClose')?.addEventListener('click', closeAbout);
+  $('#aboutOverlay')?.addEventListener('click', e => {
+    if (e.target === e.currentTarget) closeAbout();
+  });
+
   // Language
   $('#langToggle')?.addEventListener('click', toggleLang);
 
@@ -467,7 +489,11 @@ function bindStaticEvents() {
   document.addEventListener('keydown', e => {
     const overlay = $('#modalOverlay');
     if (!overlay || overlay.hidden) return;
-    if (e.key === 'Escape') { closeModal(); return; }
+    if (e.key === 'Escape') {
+      if (overlay && !overlay.hidden) { closeModal(); return; }
+      const aboutOverlay = $('#aboutOverlay');
+      if (aboutOverlay && !aboutOverlay.hidden) { closeAbout(); return; }
+    }
     if (e.key === 'Tab') {
       const focusable = $$('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])', overlay)
         .filter(el => !el.hidden && el.offsetParent !== null);
