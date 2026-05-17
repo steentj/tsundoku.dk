@@ -192,5 +192,54 @@
       "Biografi"
     ],
     "title" : "Menneskets søgen efter mening"
+  },
+  {
+    "acquisition" : "new",
+    "authors" : [
+      "Michael Vedby Rasmussen"
+    ],
+    "cover_image" : "bk-0012-F6C833DB-0C38-46E0-8219-B9538FDCB841.jpg",
+    "format" : "physical",
+    "genre" : "non-fiction",
+    "id" : "bk-0012",
+    "isbn" : "9788712804734",
+    "language" : "da",
+    "purchase_reason" : "Godt anmeldt. Var til foredrag med Vedby Rasmussen, det var interessant, så købte bogen med autograf 😀",
+    "slug" : "illusionernes_fald_hvordan_vi_overlever_den_nye_verdensorden",
+    "status" : "bought",
+    "title" : "Illusionernes fald - Hvordan vi overlever den nye verdensorden"
+  },
+  {
+    "acquisition" : "new",
+    "authors" : [
+      "Hal Koch"
+    ],
+    "cover_image" : "bk-0013-01A3C161-9985-42E1-BDE3-32239F767D2C.jpg",
+    "format" : "physical",
+    "genre" : "non-fiction",
+    "id" : "bk-0013",
+    "isbn" : "9788702400922",
+    "language" : "da",
+    "purchase_reason" : "Har hørt om den, som en af de dagsordensættende bøger om demokrati i dansk perspektiv efter 2. verdenskrig. De borgerlige, som f.eks. Henning Fonsmark, var og er stærkt uenig i synspunkterne, så jeg måtte have den.",
+    "rating" : 4,
+    "review_text" : "God og med mange genkendelige pointer her ca. 60 år efter den blev udgivet. Bærer dog præg af den tid den er skrevet i og nogle analyser er selvfølgelig med udgangspunkt i dens tid.",
+    "slug" : "hvad_er_demokrati",
+    "status" : "finished",
+    "title" : "Hvad er demokrati"
+  },
+  {
+    "acquisition" : "new",
+    "authors" : [
+      "Wolfram Eilenberger"
+    ],
+    "cover_image" : "bk-0014-399C9B25-FFB6-47B4-8226-AE2BA3D17562.jpg",
+    "format" : "physical",
+    "id" : "bk-0014",
+    "isbn" : "9788775912636",
+    "language" : "da",
+    "purchase_reason" : "Har hans tre store bøger om det 20. århundredes store filosoffer, har læst den første (ja 2 er i tsundoku biblioteket). Den første er vældig god. Var så til interview med ham ifm. Historiske Dage, hvor denne bog udkom samtidigt, så…",
+    "slug" : "ud_af_labyrinten_filosofiens_formal_i_vor_tid",
+    "status" : "reading",
+    "title" : "Ud af labyrinten - Filosofiens formål i vor tid"
   }
 ]
