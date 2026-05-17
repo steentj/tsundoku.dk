@@ -1,0 +1,11 @@
+# Public directory points to the webpage root
+# folder and, in this case, is a dot using 
+# the github repository root
+public: .
+
+# This configures the custom domain
+domains:
+    # Primary domain
+    - www.tsundoku.dk
+    # Domains that redirect to the primary
+    - tsundoku.dk
