@@ -7,7 +7,7 @@ Personal book library website for [tsundoku.dk](https://tsundoku.dk). Static, re
 - Grid and list view toggle
 - Filter by reading status (all, bought, reading, finished, abandoned)
 - Filter by genre (fiction, non-fiction, biography, poetry)
-- Sort by date added, title, author, or rating
+- Sort by added order (by id), title, author, or rating
 - Search by title, author, ISBN, or tag
 - Detail modal with full book information
 - Danish/English language toggle (Danish default)
