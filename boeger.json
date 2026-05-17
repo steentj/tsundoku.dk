@@ -120,5 +120,77 @@
     "slug" : "udvalgte_digte",
     "status" : "reading",
     "title" : "Udvalgte digte"
+  },
+  {
+    "acquisition" : "new",
+    "authors" : [
+      "Emma Laura Pérez Fjalland"
+    ],
+    "cover_image" : "bk-0008-1532ED3B-C60C-4203-B752-52F903FF5308.jpg",
+    "format" : "physical",
+    "genre" : "non-fiction",
+    "id" : "bk-0008",
+    "isbn" : "9788785381156",
+    "language" : "da",
+    "purchase_reason" : "Har fulgt Emma længe og fået hendes nyhedsbrev gennem Føljeton. Har også nydt at læse hendes klummet i Information. ",
+    "slug" : "skumringsvers_fra_den_sydskandinaviske_regntid",
+    "status" : "reading",
+    "tags" : [
+      "litteratursnack"
+    ],
+    "title" : "skumringsvers fra den sydskandinaviske regntid"
+  },
+  {
+    "acquisition" : "new",
+    "authors" : [
+      "Edmund Husserl"
+    ],
+    "cover_image" : "bk-0009-06227570-BD1E-422D-895E-00D7E8E7A4AA.jpg",
+    "format" : "physical",
+    "genre" : "non-fiction",
+    "id" : "bk-0009",
+    "isbn" : "9788793535480",
+    "language" : "da",
+    "purchase_reason" : "Har Heidegger på KUKBH og skal på Heidegger kursus i august 2026. Denne bog indeholder Husserls artikel om fænomelogi til Encyclopedia Britannica, så jeg tænker der er den mest læselige introduktion ti fænomelogi-",
+    "slug" : "fænomelogi",
+    "status" : "bought",
+    "title" : "Fænomelogi"
+  },
+  {
+    "acquisition" : "new",
+    "authors" : [
+      "Martin Heidegger"
+    ],
+    "cover_image" : "bk-0010-2E8BE9DE-00B9-4F5E-9D0E-F67FA67ED12E.jpg",
+    "format" : "physical",
+    "genre" : "non-fiction",
+    "id" : "bk-0010",
+    "isbn" : "9788793535749",
+    "language" : "da",
+    "purchase_reason" : "Har haft en forelæsning med udgangspunkt i bogen. Interessant, så vil gerne følge op med mere fordybelse.",
+    "slug" : "hvorfor_digtere",
+    "status" : "reading",
+    "title" : "Hvorfor digtere?"
+  },
+  {
+    "acquisition" : "new",
+    "authors" : [
+      "Viktor Frankl"
+    ],
+    "cover_image" : "bk-0011-FBFBF203-EADC-4095-BCA3-27294131BFDC.jpg",
+    "format" : "physical",
+    "genre" : "non-fiction",
+    "id" : "bk-0011",
+    "isbn" : "9788702413564",
+    "language" : "da",
+    "purchase_reason" : "En klassiker, der bliver anbefalet i utallige top 10 lister over bøger, man skal læse.\t",
+    "rating" : 5,
+    "review_text" : "Den er god! Svær at ryste af sig igen, mange, mange ting at overveje. Det er en af de bøger, man genlæser og som tåler det.",
+    "slug" : "menneskets_søgen_efter_mening",
+    "status" : "finished",
+    "tags" : [
+      "Biografi"
+    ],
+    "title" : "Menneskets søgen efter mening"
   }
 ]
