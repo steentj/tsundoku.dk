@@ -1,4 +1,4 @@
-# Public directory points to the webpage root
+# Public directory points to the webpage root 
 # folder and, in this case, is a dot using 
 # the github repository root
 public: .
