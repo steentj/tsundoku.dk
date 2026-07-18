@@ -71,6 +71,9 @@
     "purchase_reason" : "Læser Arents “Åndens liv” og hun er generelt oppe i tiden og bliver referet mange steder.",
     "slug" : "hannah_arendt",
     "status" : "bought",
+    "tags" : [
+      "filosofi"
+    ],
     "title" : "Hannah Arendt"
   },
   {
@@ -87,6 +90,9 @@
     "purchase_reason" : "Arendt er interessant. Læser nogle af hendes skrifter, kommer op på FUKBH kurser.",
     "slug" : "arendt_for_et_større_publikum",
     "status" : "bought",
+    "tags" : [
+      "filosofi"
+    ],
     "title" : "Arendt for et større publikum"
   },
   {
@@ -95,14 +101,17 @@
       "Søren Ulrik Thomsen"
     ],
     "cover_image" : "bk-0006-0760A9C2-504D-4D0A-BFE6-D8B4F4CBB1AE.jpg",
+    "finished_at" : "2026-06-15",
     "format" : "physical",
     "genre" : "biography",
     "id" : "bk-0006",
     "isbn" : "9788702281033",
     "language" : "da",
     "purchase_reason" : "Gode anmeldelser for 5 år siden, da den udkom. Trigget af hype omrking hans 70 års fødselsdag.",
+    "rating" : 4,
+    "review_text" : "Velskrevet indlæg om en Thomsens opvækst ungdom med sygdom i familien og oplevelsen af et sundheddsystem, der ikke slog til.",
     "slug" : "store_kongensgade_23",
-    "status" : "reading",
+    "status" : "finished",
     "title" : "Store Kongensgade 23"
   },
   {
@@ -154,6 +163,9 @@
     "purchase_reason" : "Har Heidegger på KUKBH og skal på Heidegger kursus i august 2026. Denne bog indeholder Husserls artikel om fænomelogi til Encyclopedia Britannica, så jeg tænker der er den mest læselige introduktion ti fænomelogi-",
     "slug" : "fænomelogi",
     "status" : "bought",
+    "tags" : [
+      "filosofi"
+    ],
     "title" : "Fænomelogi"
   },
   {
@@ -170,6 +182,9 @@
     "purchase_reason" : "Har haft en forelæsning med udgangspunkt i bogen. Interessant, så vil gerne følge op med mere fordybelse.",
     "slug" : "hvorfor_digtere",
     "status" : "reading",
+    "tags" : [
+      "filosofi"
+    ],
     "title" : "Hvorfor digtere?"
   },
   {
@@ -240,6 +255,273 @@
     "purchase_reason" : "Har hans tre store bøger om det 20. århundredes store filosoffer, har læst den første (ja 2 er i tsundoku biblioteket). Den første er vældig god. Var så til interview med ham ifm. Historiske Dage, hvor denne bog udkom samtidigt, så…",
     "slug" : "ud_af_labyrinten_filosofiens_formal_i_vor_tid",
     "status" : "reading",
+    "tags" : [
+      "filosofi"
+    ],
     "title" : "Ud af labyrinten - Filosofiens formål i vor tid"
+  },
+  {
+    "acquisition" : "used",
+    "authors" : [
+      "Andreas Beck Holm"
+    ],
+    "cover_image" : "bk-0015-E2241AF7-E6D6-475C-80C8-3A454E69F6DC.jpg",
+    "format" : "physical",
+    "genre" : "non-fiction",
+    "id" : "bk-0015",
+    "isbn" : "978875743508",
+    "language" : "da",
+    "purchase_reason" : "Spændende tænker i.flg. mit grundkursus i filosofi",
+    "slug" : "benedict_spinoza",
+    "status" : "reading",
+    "tags" : [
+      "filosofi"
+    ],
+    "title" : "Benedict Spinoza"
+  },
+  {
+    "acquisition" : "new",
+    "authors" : [
+      "Leo Tolstoy"
+    ],
+    "cover_image" : "bk-0016-F52A823B-1853-460C-A848-69D7CE6E566F.jpg",
+    "format" : "physical",
+    "genre" : "fiction",
+    "id" : "bk-0016",
+    "isbn" : "9780241251768",
+    "language" : "en",
+    "purchase_reason" : "Lille bog, der skulle være god. Kan fungere som introduktion til klassiske russike forfattere. Kan klares på en lidt længere togtur 😀.",
+    "slug" : "the_death_of_ivan_ilyich",
+    "status" : "bought",
+    "title" : "The Death of Ivan Ilyich"
+  },
+  {
+    "acquisition" : "new",
+    "authors" : [
+      "Susan Sontag"
+    ],
+    "cover_image" : "bk-0017-2F6DA3AF-3FBF-47F7-86DE-3BB07D601C69.jpg",
+    "format" : "physical",
+    "genre" : "non-fiction",
+    "id" : "bk-0017",
+    "isbn" : "9781250374752",
+    "language" : "en",
+    "purchase_reason" : "I følge Wolfram Eilenberger er hun en af de interessante tænkere i slut af det 20. århundrede. Har set referencer til essayet “On Interpretation” flere steder, blev nysgerrig.",
+    "slug" : "on_interpretation",
+    "status" : "bought",
+    "tags" : [
+      "filosofi"
+    ],
+    "title" : "On Interpretation"
+  },
+  {
+    "acquisition" : "new",
+    "authors" : [
+      "J. L. Carr"
+    ],
+    "cover_image" : "bk-0018-539B8030-4779-401E-BD0B-DFBEC9ED40AC.jpg",
+    "format" : "physical",
+    "genre" : "fiction",
+    "id" : "bk-0018",
+    "isbn" : "9780141182308",
+    "language" : "en",
+    "purchase_reason" : "Anbefalet af flere bogbloggere. Kort bog, god til en togtur.",
+    "slug" : "a_month_in_the_country",
+    "status" : "bought",
+    "title" : "A Month in the Country"
+  },
+  {
+    "acquisition" : "used",
+    "authors" : [
+      "Peter Thielst"
+    ],
+    "cover_image" : "bk-0019-0688818B-363D-45E6-AD44-EBBF2979E076.jpg",
+    "format" : "physical",
+    "genre" : "non-fiction",
+    "id" : "bk-0019",
+    "isbn" : "9788700200081",
+    "language" : "da",
+    "purchase_reason" : "Søren Kierkegaard er en stor mangel i min viden. Skal på ugekursus på FUKBH og derefter til 6 ugers værklæsning i “Enten - Eller”.",
+    "slug" : "livet_forstas_baglæns_men_ma_leves_forlæns",
+    "status" : "bought",
+    "tags" : [
+      "#filosofi"
+    ],
+    "title" : "Livet forstås baglæns - men må leves forlæns"
+  },
+  {
+    "acquisition" : "new",
+    "authors" : [
+      "Stefan Zweig"
+    ],
+    "cover_image" : "bk-0020-BB207427-D483-45DD-B826-29894A8D291E.jpg",
+    "finished_at" : "2026-06-18",
+    "format" : "physical",
+    "genre" : "fiction",
+    "id" : "bk-0020",
+    "isbn" : "9788763827935",
+    "language" : "da",
+    "purchase_reason" : "En klassiker med utallige anbefalinger fra litteratursider.",
+    "slug" : "verden_af_i_gar_en_europæers_erindringer",
+    "status" : "bought",
+    "title" : "Verden af i går - En europæers erindringer"
+  },
+  {
+    "acquisition" : "used",
+    "authors" : [
+      "Helle Helle"
+    ],
+    "cover_image" : "bk-0021-92404D4C-DAA7-46B1-9E47-027BA2981713.jpg",
+    "format" : "physical",
+    "genre" : "fiction",
+    "id" : "bk-0021",
+    "isbn" : "9788743406037",
+    "language" : "da",
+    "purchase_reason" : "Impulskøb, den lå billigt til salg hos Vangsgård. Helle Helle anmeldes jo altid godt, så…",
+    "slug" : "hafni_fortæller",
+    "status" : "bought",
+    "title" : "Hafni fortæller"
+  },
+  {
+    "acquisition" : "new",
+    "authors" : [
+      "J. W. Goethe",
+      "Alexander Pavlenko",
+      "Jan Krauß"
+    ],
+    "cover_image" : "bk-0022-DF135510-596E-4C1B-A472-FC2497B2506F.jpg",
+    "finished_at" : "2025-11-13",
+    "format" : "physical",
+    "genre" : "fiction",
+    "id" : "bk-0022",
+    "isbn" : "9783945400784",
+    "language" : "de",
+    "purchase_reason" : "Købte den i Weimar ifm. filosofikursus i Goethe og Jena romantkkerne. Faust som tegneserie kan mit tyske lige klare.",
+    "rating" : 5,
+    "review_text" : "Mangler selvfølgelig utroligt mange af nuancerne fran den originale tekst, men synes jeg en vellykket flytning til tegneserie. Tro mod originalen.",
+    "slug" : "faust",
+    "status" : "finished",
+    "title" : "Faust"
+  },
+  {
+    "acquisition" : "used",
+    "authors" : [
+      "Rune Fritx Nicolaisen"
+    ],
+    "cover_image" : "bk-0023-33C9E1F6-5577-407E-8180-FF6E61253695.jpg",
+    "format" : "physical",
+    "genre" : "non-fiction",
+    "id" : "bk-0023",
+    "isbn" : "9788779553217",
+    "language" : "da",
+    "purchase_reason" : "Forberedelse til Heidegger kursus i Freiburg.",
+    "slug" : "at_være_undervejs_introduktion_til_heideggers_filosofi",
+    "status" : "bought",
+    "title" : "At være undervejs - Introduktion til Heideggers filosofi"
+  },
+  {
+    "acquisition" : "new",
+    "authors" : [
+      "Fredrik Backman"
+    ],
+    "cover_image" : "bk-0024-F94E09CE-AD35-4A11-8E8A-8017F400C2B2.jpg",
+    "format" : "physical",
+    "genre" : "fiction",
+    "id" : "bk-0024",
+    "isbn" : "9788772381350",
+    "language" : "da",
+    "purchase_reason" : "Masser af anbefaliner i diverse blog, avisartikler. Jeg er en sucker, suk…",
+    "slug" : "mine_venner",
+    "status" : "bought",
+    "title" : "Mine venner"
+  },
+  {
+    "acquisition" : "new",
+    "authors" : [
+      "J. D. Vance"
+    ],
+    "cover_image" : "bk-0025-C1A9990F-CF8F-4B0B-953F-29EB1A05EFC7.jpg",
+    "format" : "physical",
+    "genre" : "biography",
+    "id" : "bk-0025",
+    "isbn" : "9788775872428",
+    "language" : "da",
+    "purchase_reason" : "70 års fødselsdagsgave. Gode anmeldelser, meget relevant i disse Trump tider",
+    "slug" : "hillbilly_erindringer_fra_trumpland",
+    "status" : "bought",
+    "title" : "Hillbilly - Erindringer fra Trumpland"
+  },
+  {
+    "acquisition" : "new",
+    "authors" : [
+      "Anne Applebaum"
+    ],
+    "cover_image" : "bk-0026-B51CAD5E-EDAA-4DF6-AF4D-8327A3D846CC.jpg",
+    "finished_at" : "2025-10-28",
+    "format" : "physical",
+    "genre" : "non-fiction",
+    "id" : "bk-0026",
+    "isbn" : "9788774675563",
+    "language" : "da",
+    "purchase_reason" : "Har læste hendes tidligere bog “Demokratiets tusmørke”, hendes artikler i Atlantica og diverse andre indlæg. Meget relevant forfatter med stor indigt og stor formidlingsevne.",
+    "rating" : 5,
+    "review_text" : "Levede fuldt ud op til alle forventninger. ",
+    "slug" : "autokrati_a_s",
+    "status" : "finished",
+    "title" : "Autokrati A\/S"
+  },
+  {
+    "acquisition" : "new",
+    "authors" : [
+      "Mikhail Bulgakov"
+    ],
+    "cover_image" : "bk-0027-62C3C1E2-E23B-4660-9C01-0091EE655442.jpg",
+    "format" : "physical",
+    "genre" : "fiction",
+    "id" : "bk-0027",
+    "isbn" : "9781784873745",
+    "language" : "en",
+    "purchase_reason" : "Har læst “Mesteren og Margarita”. Så denne i en udsalgskurv og dene er ret kort og synes velegnet til år man skal have en hurtig fornøjelse\/fordybelse.",
+    "slug" : "the_heart_of_a_dog",
+    "status" : "bought",
+    "title" : "The Heart of a Dog"
+  },
+  {
+    "acquisition" : "new",
+    "authors" : [
+      "Søren Kierkegaard"
+    ],
+    "cover_image" : "bk-0028-10F49E09-CF76-4783-BE4B-03BD40A1F9A5.jpg",
+    "format" : "physical",
+    "genre" : "non-fiction",
+    "id" : "bk-0028",
+    "isbn" : "9788702172379",
+    "language" : "da",
+    "purchase_reason" : "Værklæsning på Folkeuniversitetet. En an grundpillerne i dansk filosofi.",
+    "slug" : "enten_eller_første_del",
+    "status" : "bought",
+    "tags" : [
+      "filosofi"
+    ],
+    "title" : "Enten - Eller. Første del"
+  },
+  {
+    "acquisition" : "used",
+    "authors" : [
+      "Hannah Arendt"
+    ],
+    "cover_image" : "bk-0029-F19236AD-110E-4FCE-88A5-0F71923C6C18.jpg",
+    "format" : "physical",
+    "genre" : "non-fiction",
+    "id" : "bk-0029",
+    "isbn" : "9788772042022",
+    "language" : "da",
+    "purchase_reason" : "Føljebog til kursus på Folkeuniversitetet “Viljens mysterium”.",
+    "slug" : "andens_liv",
+    "status" : "reading",
+    "tags" : [
+      "filosofi"
+    ],
+    "title" : "Åndens liv"
   }
 ]
